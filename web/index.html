@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<!--
+@copyright 2017-2018 adalberto.lacruz@gmail.com
+-->
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_components</title>
+    <script defer src="main.dart" type="application/dart"></script>
+    <script defer src="packages/browser/dart.js"></script>
+</head>
+
+<body style="visibility: hidden">
+  <alg-test att="value">hello</alg-test>
+  <div>
+      <style>
+        .green {
+          --test: {
+            color: green;
+          };
+        }
+      </style>
+      <alg-test class="green" color>Pep</alg-test>
+      <alg-button>button</alg-button>
+  </div>
+</body>
+</html>
