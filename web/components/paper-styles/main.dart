@@ -7,7 +7,7 @@ import '../demo_pages.dart';
 import 'styles.dart';
 
 Future<Null> main() async {
-  await run(); // initialize components
+//  await run(); // initialize components
   defineShadow();
   defineStyleSheetDefaultTheme();
   definePaperMaterialStyles();
@@ -15,5 +15,5 @@ Future<Null> main() async {
   defineSheetDemoPages();
   defineSheetMainStyles();
 
-  document.body.style.visibility = '';
+  document.body.style.visibility = ''; // TODO: opacity
 }

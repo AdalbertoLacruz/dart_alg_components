@@ -1,17 +1,35 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+//part of core.alg_components;
+import '../src/core_library.dart';
 
 ///
 /// One button test component
 ///
-@AlgElement('alg-button')
 class AlgButton extends AlgComponent {
   ///
-  factory AlgButton() => new Element.tag('alg-button');
+  static String tag = 'alg-button';
+
+  ///
+  factory AlgButton() => new Element.tag(tag);
 
   ///
   AlgButton.created():super.created();
+
+  ///
+  static void register() => AlgComponent.register(tag, AlgButton);
+
+//  ///
+//  @override
+//  void deferredConstructor() {
+//    super.deferredConstructor();
+//  }
+
+  ///
+//  @override
+//  void domLoaded() {
+//    super.domLoaded();
+//  }
 
   ///
   @override

@@ -1,35 +1,62 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+//part of core.alg_components;
+import '../src/core_library.dart';
 
 ///
 /// One test component
 ///
-@AlgElement('alg-test')
 class AlgTest extends AlgComponent {
   ///
-  factory AlgTest() => new Element.tag('alg-test');
+  static String tag = 'alg-test';
+
+  ///
+  factory AlgTest() => new Element.tag(tag);
 
   ///
   AlgTest.created():super.created();
 
   ///
-  @override
-  void attached() {
-    super.attached();
-
-    attributes.forEach((String name, String value) => window.console.log('attribute: $name = $value'));
-
-    if (attributes.containsKey('color'))
-        ids['d'].style.backgroundColor = 'yellow';
-  }
+  static void register() => AlgComponent.register(tag, AlgTest);
 
   ///
   @override
-  void attributeChanged(String name, String oldValue, String newValue) {
-    super.attributeChanged(name, oldValue, newValue);
-    window.console.log('attribute: $name-$oldValue-$newValue');
+  void deferredConstructor() {
+    super.deferredConstructor();
+
+    attributeManager
+      ..define('att')
+
+      ..define<bool>('colorange', type: TYPE_BOOL)
+      ..reflect()
+
+      ..define<String>('color')
+      ..on((String color) {
+          ids['d'].style.backgroundColor = color;
+          attributeManager.change('colorange', color == 'orange');
+      });
   }
+
+
+  ///
+  @override
+  void domLoaded() {
+    super.domLoaded();
+
+    if (id == 'test2')
+      setAttribute('color', 'orange');
+  }
+
+  /// Attributes managed by the component.
+  @override
+  List<String> observedAttributes() => super.observedAttributes()
+    ..addAll(<String>['att', 'color']);
+
+//  ///
+//  @override
+//  void attached() {
+//    super.attached();
+//  }
 
   ///
   /// Build the template Element to be cloned in the shadow creation

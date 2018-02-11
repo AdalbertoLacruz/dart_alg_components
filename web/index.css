@@ -1,0 +1,16 @@
+/*
+*:not(:defined) {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+TODO: only works with customElements.define()
+*/
+
+body {
+  transition: opacity 0.3s linear;
+
+/*
+  --paper-font-common-base: @apply;
+TODO: removed by DART
+*/
+ }

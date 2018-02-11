@@ -1,0 +1,6 @@
+platforms: [chrome, vm]
+
+#paths:
+#  - test
+#  - test/cases
+

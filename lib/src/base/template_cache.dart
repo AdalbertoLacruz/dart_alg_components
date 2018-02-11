@@ -1,20 +1,25 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of core.alg_components;
 
 ///
 /// Storage for the components template information
 ///
 class TemplateCache {
   /// Storage
-  static Map<String, TemplateCacheItem> register = <String, TemplateCacheItem>{};
+  static Map<String, TemplateCacheItem> _register = <String, TemplateCacheItem>{};
+
+  ///
+  /// Get an item from the TemplateCache register
+  ///
+  static TemplateCacheItem getItem(String name) => _register[name];
 
   ///
   /// Recovers the template for component [name].
   /// If don't exist creates it with [handler]
   ///
   static TemplateElement getTemplate(String name, Function handler) {
-    final TemplateCacheItem item = register.putIfAbsent(name, () => new TemplateCacheItem())
+    final TemplateCacheItem item = _register.putIfAbsent(name, () => new TemplateCacheItem())
       ..template ??= handler();
 
     item.templateIds ??= searchTemplateIds(item.template.innerHtml);
@@ -24,14 +29,14 @@ class TemplateCache {
   ///
   /// Recovers the template id names for component [name]
   ///
-  static List<String> getTemplateIds(String name) => register[name].templateIds;
+  static List<String> getTemplateIds(String name) => _register[name].templateIds;
 
   ///
   /// Recovers the template style for component [name].
   /// If don't exist creates it with [handler]
   ///
   static TemplateElement getTemplateStyle(String name, Function handler) {
-    final TemplateCacheItem item = register.putIfAbsent(name, () => new TemplateCacheItem());
+    final TemplateCacheItem item = _register.putIfAbsent(name, () => new TemplateCacheItem());
     if (item.templateStyle == null) {
       final RulesInstance css = new RulesInstance(null);
       item

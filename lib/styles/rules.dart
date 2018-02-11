@@ -1,6 +1,6 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of styles.alg_components;
 
 ///
 /// css and stylesheets management
@@ -16,7 +16,7 @@ class Rules {
   /// Recovers a css rule [id] from the component style
   /// Rules such as { rule1; rule2; } => rule1; rule2;
   ///
-  static String apply(AlgComponent element, String id) {
+  static String apply(HtmlElement element, String id) {
     String rule = getComputedProperty(element, id).trim();
     if (rule.startsWith('{'))
         rule = rule.substring(1, rule.length - 1);
@@ -86,7 +86,7 @@ class Rules {
 ///
 class RulesInstance extends Rules {
   /// HTML element affected by css.
-  AlgComponent element;
+  HtmlElement element;
 
   /// No element supplied, but use of apply or calc
   bool styleCouldBeCustom = false;

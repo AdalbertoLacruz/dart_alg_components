@@ -1,3 +1,3 @@
-export 'package:initialize/initialize.dart';
+//export 'package:initialize/initialize.dart';
 
-export 'components/alg_components_library.dart';
+export 'package:dart_alg_components/src/core_library.dart';

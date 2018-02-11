@@ -6,7 +6,7 @@ import 'package:dart_alg_components/dart_alg_components.dart';
 void defineSheetMainStyles() {
   defineTypography();
 
-  Rules.sheet('main', '''    
+  Rules.sheet('main', '''
     .redlines {
       background: linear-gradient(0deg, transparent, transparent 3.5px, rgba(255,0,0,0.2) 3.5px, rgba(255,0,0,0.2) 4px);
       background-size: 100% 4px;

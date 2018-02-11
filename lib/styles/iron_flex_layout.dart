@@ -1,12 +1,12 @@
 // @copyright @polymer\iron-flex-layout\iron-flex-layout.js 3.0 20170822
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of styles.alg_components;
 
 ///
 /// Define mixins for iron-flex-layout
 ///
-@initMethod
+//@initMethod
 void defineIronFlexLayout() {
   if (Rules.isDefined('iron-flex-layout'))
       return;

@@ -1,12 +1,12 @@
 // @copyright @polymer\paper-styles\element-styles\paper-material-styles.js 3.0 20170822
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of styles.alg_components;
 
 ///
 /// Define mixins for paper material styles
 ///
-@initMethod
+//@initMethod
 void definePaperMaterialStyles() {
   if (Rules.isDefined('paper-material-styles'))
       return;

@@ -1,28 +1,58 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of core.alg_components;
 
 ///
-/// Component build with internal nodes/style
+/// Component building with internal nodes/style
 ///
 class AlgComponent extends HtmlElement {
+  // ------------------------------------------------- Lifecycle
+
   /// Component creation
   AlgComponent.created() :super.created() {
     createShadowElement();
     insertStyle();
+
+    new Future<Null>(() { domLoaded(); });
   }
 
   ///
-  /// Component inserted in the tree
+  /// Component inserted into the tree
   ///
   @override
   void attached() {
     super.attached();
 
-    // Assure all sheets are loaded - async
-    new Future<Null>(() {
-      modifyStyle();
-    });
+    if (!loadedComponent) {
+      deferredConstructor();
+      postDeferredConstructor();
+    }
+  }
+
+  ///
+  /// First task in attached, executed once.
+  /// It is called before attributeChange
+  /// Simplify constructor and place here attributeManager, eventManager, ...
+  ///
+  void deferredConstructor() {
+
+  }
+
+  ///
+  /// Tasks to execute after deferredConstructor
+  ///
+  void postDeferredConstructor() {
+
+  }
+
+  ///
+  /// Dom has yet the components created
+  ///
+  void domLoaded() {
+    loadedComponent = true;
+
+    modifyStyle();
+    AttributeManager.initialReadAllAttributes(this);
   }
 
   ///
@@ -31,6 +61,10 @@ class AlgComponent extends HtmlElement {
   @override
   void attributeChanged(String name, String oldValue, String newValue) {
     super.attributeChanged(name, oldValue, newValue);
+    if (!observedAttributesCache.contains(name))
+        return;
+
+    attributeManager.change(name, newValue);
   }
 
   ///
@@ -41,8 +75,33 @@ class AlgComponent extends HtmlElement {
     super.detached();
   }
 
+  // ------------------------------------------------- Register
+
+  /// List of components registered
+  static List<String> registered = <String>[];
+
+  ///
+  /// Register a component only once
+  ///
+  static void register(String tag, Type componentClass) {
+    if (registered.isEmpty) {
+      definePaperMaterialStyles();
+      defineIronFlexLayout();
+    }
+    if (!registered.contains(tag)) {
+      registered.add(tag);
+      document.registerElement(tag, componentClass);
+      // window.customElements.define(tag, componentClass); // standard, but not supported
+    }
+  }
+
+  // ------------------------------------------------- Template
+
   /// Pointers to ids in template instance
   Map<String, HtmlElement> ids;
+
+  /// True if component inserted in a stable dom
+  bool loadedComponent = false;
 
   /// For innerHtml template validation
   final NodeValidatorBuilder nodeValidator = new NodeValidatorBuilder()
@@ -58,25 +117,21 @@ class AlgComponent extends HtmlElement {
 
   /// Recovers or creates the cached template '<div>...<slot></slot></div>'
   TemplateElement get template =>
-      TemplateCache.getTemplate(tagName, createTemplate);
+      TemplateCache.getTemplate(localName, createTemplate);
 
   /// Recovers or creates the cached templateStyle '<style>...</style>'
   TemplateElement get templateStyle =>
-      TemplateCache.getTemplateStyle(tagName, createTemplateStyle);
+      TemplateCache.getTemplateStyle(localName, createTemplateStyle);
 
   ///
   /// Build the shadow element, and the reference to the id elements
   ///
   void createShadowElement() {
-    // create element
-    final Map<String, String> shadowRootInitDict = <String, String>{ 'mode': 'open'};
-    attachShadow(shadowRootInitDict);
-
-    final DocumentFragment node = template.content.clone(true);
-    shadowRoot.append(node);
+    attachShadow(<String, String>{ 'mode': 'open'});
+    shadowRoot.append(template.content.clone(true));
 
     // ids
-    ids = TemplateCache.getTemplateIds(tagName)
+    ids = TemplateCache.getTemplateIds(localName)
         .fold(<String, HtmlElement>{}, (Map<String, HtmlElement> result, String id) {
           result[id] = shadowRoot.querySelector('#$id');
           return result;
@@ -86,20 +141,13 @@ class AlgComponent extends HtmlElement {
   ///
   /// Build the template Element to be cloned in the shadow creation
   ///
-  TemplateElement createTemplate() {
-    final TemplateElement template = new TemplateElement()
-      ..setInnerHtml('');
-    return template;
-  }
+  TemplateElement createTemplate() => new TemplateElement();
 
   ///
   /// Build the basic static template for style
   ///
-  TemplateElement createTemplateStyle(RulesInstance css) {
-    final TemplateElement template = new TemplateElement()
-      ..setInnerHtml('<style></style>', validator: nodeValidatorStyle);
-    return template;
-  }
+  TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()
+    ..setInnerHtml('<style></style>', validator: nodeValidatorStyle);
 
   ///
   /// Build the style from the template and insert it in the shadowRoot
@@ -113,7 +161,7 @@ class AlgComponent extends HtmlElement {
   /// If so, replace it.
   ///
   void modifyStyle() {
-    final TemplateCacheItem item = TemplateCache.register[tagName];
+    final TemplateCacheItem item = TemplateCache.getItem(localName);
     if (!item.styleCouldBeCustom)
         return;
 
@@ -126,5 +174,19 @@ class AlgComponent extends HtmlElement {
     shadowRoot.querySelector('style')
       ..replaceWith(styleElement.content);
   }
+
+  // ------------------------------------------------- Bindings
+
+  /// Attributes managed by the component.
+  /// To be override by components to add more attributes
+  List<String> observedAttributes() => <String>['disabled', 'style'];
+
+  ///
+  List<String> get observedAttributesCache => _observedAttributesCache ??= observedAttributes();
+  List<String> _observedAttributesCache;
+
+  /// Attribute input/output and binding
+  AttributeManager get attributeManager => _attributeManager ??= new AttributeManager(this);
+  AttributeManager _attributeManager;
 }
 

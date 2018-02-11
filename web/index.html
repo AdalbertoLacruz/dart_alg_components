@@ -10,12 +10,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test_components</title>
+    <link rel="stylesheet" apply type="text/css" href="index.css">
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
 </head>
 
-<body style="visibility: hidden">
-  <alg-test att="value">hello</alg-test>
+<body style="opacity: 0">
+  <alg-test id="test1" att="value">hello</alg-test>
   <div>
       <style>
         .green {
@@ -24,7 +25,7 @@
           };
         }
       </style>
-      <alg-test class="green" color>Pep</alg-test>
+      <alg-test id="test2" class="green" color="yellow" boolattr>Pep</alg-test>
       <alg-button>button</alg-button>
   </div>
 </body>

@@ -1,12 +1,15 @@
 // @copyright @polymer\paper-styles\default-theme.js 3.0 20170822
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of styles.alg_components;
 
 ///
 /// Defines the Default Theme
 ///
 void defineStyleSheetDefaultTheme() {
+  if (Rules.isDefined('default-theme'))
+    return;
+
   defineStyleSheetColor();
   Rules.sheet('default-theme', '''
     html {

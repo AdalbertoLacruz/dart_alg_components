@@ -1,7 +1,7 @@
 // @copyright @polymer\paper-styles\element-styles\paper-item-styles.js 3.0 20170822
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of styles.alg_components;
 
 ///
 /// Define mmixins for paper-item-styles.

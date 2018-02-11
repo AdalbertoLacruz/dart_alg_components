@@ -1,12 +1,15 @@
 // @copyright @polymer\paper-styles\color.js 3.0 20170822
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of alg_components;
+part of styles.alg_components;
 
 ///
 /// Defines the color palette
 ///
 void defineStyleSheetColor() {
+  if (Rules.isDefined('color'))
+    return;
+
   Rules.sheet('color', '''
   html {
     /* Material Design color palette for Google products */
