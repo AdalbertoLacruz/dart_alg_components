@@ -1,6 +1,10 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-part of core.alg_components;
+//part of core.alg_components;
+import 'dart:async';
+import '../base/alg_log.dart';
+import '../util/constants.dart';
+export '../util/constants.dart';
 
 ///
 /// Common code for observable types.
@@ -35,11 +39,14 @@ class Observable<T> {
   /// Previous value
   T oldValue;
 
+  /// For log name = 'prefix#name'
+  String prefix = '';
+
   /// set value transformer handler. `newValue = transformer(value);`
   Function transformer;
 
   /// Observable value type
-  String _type;
+  String type;
 
   ///
   /// Constructor
@@ -54,7 +61,7 @@ class Observable<T> {
 
   /// default transformer for num value
   static Function transformerNum =
-      (dynamic value) => (value is num) ? value : (value is String) ? num.parse(value) : null;
+      (dynamic value) => (value is num) ? value : (value is String && value.isNotEmpty) ? num.parse(value) : null;
 
   /// Stop updated in true, until false. Then update with the last delayed value received.
   /// Used to avoid bumping.
@@ -81,6 +88,8 @@ class Observable<T> {
   /// The object value. All is around this.
   T get value => _value;
   set value(T value) {
+    AlgLog.log('$prefix#$name', value);
+
     final T newValue = (transformer == null) ? value : transformer(value);
     if (_value != newValue ) {
       isNewValue = true;
@@ -212,7 +221,7 @@ class Observable<T> {
   /// Initialize value/transformer according
   ///
   void setType(String type, {bool useTransformer = false}) {
-    _type = type;
+    this.type = type;
     switch (type) {
       case TYPE_BOOL:
         _value = false as T;

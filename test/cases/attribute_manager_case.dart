@@ -1,10 +1,8 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
-@TestOn('browser')
-//import 'dart:html';
-import 'package:test/test.dart';
-import 'package:dart_alg_components/dart_alg_components.dart';
 
-void main() {
+part of test.alg_components;
+
+void attributeManagerTest() {
   final AttributeManager attributeManager = new AttributeManager(null);
 
   group('AttributeManager isUniqueAction', () {

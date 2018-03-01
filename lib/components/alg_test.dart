@@ -20,45 +20,6 @@ class AlgTest extends AlgComponent {
   static void register() => AlgComponent.register(tag, AlgTest);
 
   ///
-  @override
-  void deferredConstructor() {
-    super.deferredConstructor();
-
-    attributeManager
-      ..define('att')
-
-      ..define<bool>('colorange', type: TYPE_BOOL)
-      ..reflect()
-
-      ..define<String>('color')
-      ..on((String color) {
-          ids['d'].style.backgroundColor = color;
-          attributeManager.change('colorange', color == 'orange');
-      });
-  }
-
-
-  ///
-  @override
-  void domLoaded() {
-    super.domLoaded();
-
-    if (id == 'test2')
-      setAttribute('color', 'orange');
-  }
-
-  /// Attributes managed by the component.
-  @override
-  List<String> observedAttributes() => super.observedAttributes()
-    ..addAll(<String>['att', 'color']);
-
-//  ///
-//  @override
-//  void attached() {
-//    super.attached();
-//  }
-
-  ///
   /// Build the template Element to be cloned in the shadow creation
   ///
   @override
@@ -70,8 +31,6 @@ class AlgTest extends AlgComponent {
       <div id="d">Hey <alg-tt id="tt" other></alg-tt><slot></slot></div>
     ''',  validator: nodeValidator);
   }
-
-
 
   ///
   /// Build the basic static template for style
@@ -87,4 +46,51 @@ class AlgTest extends AlgComponent {
         ${css.apply('--test')}
       }
     </style>''', validator: nodeValidatorStyle);
+
+  ///
+  @override
+  void deferredConstructor() {
+    super.deferredConstructor();
+
+    attributeManager
+      ..define('att')
+
+      ..define<bool>('colorange', type: TYPE_BOOL)
+      ..reflect()
+
+      ..define<String>('color')
+      ..on((String color) {
+        ids['d'].style.backgroundColor = color;
+        attributeManager.change('colorange', color == 'orange');
+      });
+
+//    eventManager
+//      ..on('click', (Event event) {
+//        print('on CLIK TEST --------------');
+//      })
+//      ..onLink('click', (Event event, dynamic context) {
+//        print('onLink CLICK TEST .......');
+//      })
+//      ..subscribe();
+  }
+
+  ///
+  @override
+  void domLoaded() {
+    super.domLoaded();
+
+    if (id == 'test2')
+      setAttribute('color', 'orange');
+  }
+
+//  ///
+//  @override
+//  void attached() {
+//    super.attached();
+//  }
+
+  /// Attributes managed by the component.
+  @override
+  List<String> observedAttributes() => super.observedAttributes()
+    ..addAll(<String>['att', 'color']);
 }

@@ -3,15 +3,17 @@
 part of core.alg_components;
 
 ///
-/// Component building with internal nodes/style
+/// Component build with internal nodes/style
 ///
 class AlgComponent extends HtmlElement {
   // ------------------------------------------------- Lifecycle
 
+  ///
   /// Component creation
+  ///
   AlgComponent.created() :super.created() {
-    createShadowElement();
-    insertStyle();
+    TemplateManager.createShadowElement(this);
+    TemplateManager.insertStyle(this);
 
     new Future<Null>(() { domLoaded(); });
   }
@@ -35,15 +37,13 @@ class AlgComponent extends HtmlElement {
   /// Simplify constructor and place here attributeManager, eventManager, ...
   ///
   void deferredConstructor() {
-
+    addStandardAttributes();
   }
 
   ///
   /// Tasks to execute after deferredConstructor
   ///
-  void postDeferredConstructor() {
-
-  }
+  void postDeferredConstructor() { }
 
   ///
   /// Dom has yet the components created
@@ -51,20 +51,33 @@ class AlgComponent extends HtmlElement {
   void domLoaded() {
     loadedComponent = true;
 
-    modifyStyle();
+    TemplateManager.modifyStyle(this);
+    AttributeManager.findController(this);
     AttributeManager.initialReadAllAttributes(this);
+
+    if (_messageManager != null) {
+      messageManager
+          ..updatePrebinded()
+          ..subscribeTo();
+    }
   }
 
   ///
-  /// Responds to attribute changes
+  /// Responds to attribute changes, for observed and not removed attributes.
+  /// If possible, it subscribes to the controller in the first time.
   ///
   @override
   void attributeChanged(String name, String oldValue, String newValue) {
     super.attributeChanged(name, oldValue, newValue);
-    if (!observedAttributesCache.contains(name))
+    if (!observedAttributesCache.contains(name)
+        || (newValue == null && attributeManager.isRemoved(name)))
         return;
 
-    attributeManager.change(name, newValue);
+    if (newValue == null || attributeManager.isSubscriptionTried(name)) {
+      attributeManager.change(name, newValue);
+    } else {
+      AttributeManager.subscribeBindings(this, name, newValue);
+    }
   }
 
   ///
@@ -73,6 +86,13 @@ class AlgComponent extends HtmlElement {
   @override
   void detached() {
     super.detached();
+
+    if (_attributeManager != null)
+      attributeManager.unsubscribe();
+    if (_eventManager != null)
+      eventManager.unsubscribe();
+    if (_styleManager != null)
+      styleManager.unsubscribe();
   }
 
   // ------------------------------------------------- Register
@@ -115,27 +135,28 @@ class AlgComponent extends HtmlElement {
   final NodeValidatorBuilder nodeValidatorStyle = new NodeValidatorBuilder()
     ..allowElement('style');
 
+  /// cache for tabIndex in disabled
+  int oldTabIndex;
+
+  /// component role, such as 'button', ...
+  String role;
+
   /// Recovers or creates the cached template '<div>...<slot></slot></div>'
   TemplateElement get template =>
-      TemplateCache.getTemplate(localName, createTemplate);
+      TemplateManager.getTemplate(localName, createTemplate);
 
   /// Recovers or creates the cached templateStyle '<style>...</style>'
   TemplateElement get templateStyle =>
-      TemplateCache.getTemplateStyle(localName, createTemplateStyle);
+      TemplateManager.getTemplateStyle(localName, createTemplateStyle);
 
   ///
-  /// Build the shadow element, and the reference to the id elements
+  /// check for tabIndex, role, and add them if not defined
   ///
-  void createShadowElement() {
-    attachShadow(<String, String>{ 'mode': 'open'});
-    shadowRoot.append(template.content.clone(true));
-
-    // ids
-    ids = TemplateCache.getTemplateIds(localName)
-        .fold(<String, HtmlElement>{}, (Map<String, HtmlElement> result, String id) {
-          result[id] = shadowRoot.querySelector('#$id');
-          return result;
-        });
+  void addStandardAttributes() {
+    if (!attributes.containsKey('role') && role != null)
+        setAttribute('role', role);
+    if (!attributes.containsKey('tabindex'))
+        setAttribute('tabindex', '0');
   }
 
   ///
@@ -149,33 +170,22 @@ class AlgComponent extends HtmlElement {
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()
     ..setInnerHtml('<style></style>', validator: nodeValidatorStyle);
 
-  ///
-  /// Build the style from the template and insert it in the shadowRoot
-  ///
-  void insertStyle() {
-    shadowRoot.insertBefore(templateStyle.content.clone(true), shadowRoot.firstChild);
-  }
-
-  ///
-  /// Analyze if the component style is affected by the dom position.
-  /// If so, replace it.
-  ///
-  void modifyStyle() {
-    final TemplateCacheItem item = TemplateCache.getItem(localName);
-    if (!item.styleCouldBeCustom)
-        return;
-
-    final RulesInstance css = new RulesInstance(this);
-    final TemplateElement styleElement = createTemplateStyle(css);
-
-    if (!css.styleIsCustom)
-        return;
-
-    shadowRoot.querySelector('style')
-      ..replaceWith(styleElement.content);
-  }
-
   // ------------------------------------------------- Bindings
+
+  /// Attribute input/output and binding
+  AttributeManager get attributeManager => _attributeManager ??= new AttributeManager(this);
+  AttributeManager _attributeManager;
+
+  /// String Name or class instance
+  dynamic controller;
+
+  /// Events
+  EventManager get eventManager => _eventManager ??= new EventManager(this);
+  EventManager _eventManager;
+
+  /// Manages fire events
+  MessageManager get messageManager => _messageManager ??= new MessageManager(this);
+  MessageManager _messageManager;
 
   /// Attributes managed by the component.
   /// To be override by components to add more attributes
@@ -185,8 +195,12 @@ class AlgComponent extends HtmlElement {
   List<String> get observedAttributesCache => _observedAttributesCache ??= observedAttributes();
   List<String> _observedAttributesCache;
 
-  /// Attribute input/output and binding
-  AttributeManager get attributeManager => _attributeManager ??= new AttributeManager(this);
-  AttributeManager _attributeManager;
-}
+  /// Styles subscribed to the controller
+  StyleManager get styleManager => _styleManager ??= new StyleManager(this);
+  StyleManager _styleManager;
 
+  ///
+  /// Send a message to the controller
+  ///
+  void fireMessage(String channel, dynamic message) => messageManager.fire(channel, message);
+}

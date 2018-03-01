@@ -19,27 +19,14 @@ class AlgButton extends AlgComponent {
   ///
   static void register() => AlgComponent.register(tag, AlgButton);
 
-//  ///
-//  @override
-//  void deferredConstructor() {
-//    super.deferredConstructor();
-//  }
+  @override
+  String role = 'button';
 
-  ///
-//  @override
-//  void domLoaded() {
-//    super.domLoaded();
-//  }
-
-  ///
   @override
   TemplateElement createTemplate() => super.createTemplate()..setInnerHtml('''
     <button id="but"><slot></slot><span id="in"></span></button>
     ''', validator: nodeValidator);
 
-  ///
-  /// Build the basic static template for style
-  ///
   @override
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()..setInnerHtml('''
     <style>
@@ -47,4 +34,43 @@ class AlgButton extends AlgComponent {
         font-size: 2em;
       }
     </style>''', validator: nodeValidatorStyle);
+
+  @override
+  void deferredConstructor() {
+    super.deferredConstructor();
+
+    attributeManager
+      ..define('color', type: TYPE_STRING)
+      ..on((String color) {
+        ids['but'].style.color = color;
+      })
+
+      ..define('text', type: TYPE_NUM)
+      ..on((num value) {
+        ids['in'].innerHtml = value.toString();
+      });
+
+    eventManager
+      ..onLink('click', (Event event, dynamic context) {
+        if (!(EventExpando.getCaptured(event).length > 1))
+          print('onLink CLICK BTN captured.......');
+      })
+
+      ..on('pressed', (bool value) {
+        print('pressed: $value');
+      })
+      ..subscribe();
+  }
+
+  ///
+//  @override
+//  void domLoaded() {
+//    super.domLoaded();
+//  }
+
+  /// Attributes managed by the component.
+  @override
+  List<String> observedAttributes() => super.observedAttributes()
+    ..addAll(<String>['color', 'text', 'on-click']);
+
 }

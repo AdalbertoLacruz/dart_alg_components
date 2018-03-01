@@ -6,11 +6,22 @@ part of core.alg_components;
 /// HTML handling for Attributes and Events observables
 ///
 class ObservableEvent<T> extends Observable<T> {
-  /// The binded to the controller has been processed
-  bool binded = false;
-
   /// Constructor
   ObservableEvent(String name) :super(name);
+
+  /// Channel subscription
+  String bindedChannel;
+
+  /// AlgController subscription. dynamic to let other controller types
+  dynamic bindedController;
+
+  ///
+  /// Handler to subscribe to other observables
+  ///
+//  void receiverHandler(dynamic received) => update(received);
+  void receiverHandler(dynamic received) {
+    update(received);
+  }
 
   ///
   /// Set [item] [attribute] in a value change.
@@ -21,16 +32,16 @@ class ObservableEvent<T> extends Observable<T> {
   void onChangeReflectToAttribute(HtmlElement element, {
       String attribute,
       bool init = false,
-      String type
+      String type // don't mistake with this.type
   }) {
     final String _attribute = attribute ?? name;
     Function handler;
-    if (_type == TYPE_BOOL) {
+    if (this.type == TYPE_BOOL) {
       handler = (bool value) => FHtml.attributeToggle(element, _attribute, force: value, type: type);
       observe(handler);
       if (value != null && init)
           handler(value);
-    } else if (_type == TYPE_STRING || _type == TYPE_NUM) {
+    } else if (this.type == TYPE_STRING || this.type == TYPE_NUM) {
       handler = (dynamic value) {
         if (value != null) {
           final String _value = (value is! String) ? value.toString() : value;
@@ -49,7 +60,7 @@ class ObservableEvent<T> extends Observable<T> {
   /// Set class in a value change true/false
   ///
   void onChangeReflectToClass(HtmlElement element, String className) {
-    if (_type == TYPE_BOOL)
+    if (type == TYPE_BOOL)
       observe((bool value) => element.classes.toggle(className, value));
   }
 

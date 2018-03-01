@@ -15,18 +15,32 @@
     <script defer src="packages/browser/dart.js"></script>
 </head>
 
-<body style="opacity: 0">
+<body style="opacity: 0" controller="app-controller">
+  <button id="btn-save">Save log</button>
   <alg-test id="test1" att="value">hello</alg-test>
   <div>
-      <style>
-        .green {
-          --test: {
-            color: green;
-          };
-        }
-      </style>
-      <alg-test id="test2" class="green" color="yellow" boolattr>Pep</alg-test>
-      <alg-button>button</alg-button>
+    <style>
+      .green {
+        --test: {
+          color: green;
+        };
+      }
+    </style>
+    <alg-test id="test2" class="green" color="yellow" boolattr>Pep</alg-test>
+
+    <alg-button id="btn1"
+                text="{{:btn1-text}}"
+                color="[[app-controller:btn1-color]]"
+                style="margin:[[:btn1-style-margin=40px]];background-color=yellow">OK</alg-button>
+    <alg-button id="btn2"
+                text="{{:btn2-text=15}}"
+                color="[[app-controller:btn2-color]]"
+                on-click="[[app-controller:BTN2_CLICK]]"
+                style="background-color">&times;</alg-button>
+    <alg-button id="btn1"
+                text color style="margin;background-color;color=black" attr="25">
+      <alg-test>ok</alg-test>
+    </alg-button>
   </div>
 </body>
 </html>

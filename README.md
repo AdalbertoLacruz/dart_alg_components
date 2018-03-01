@@ -73,7 +73,7 @@ attributes/properties/managers.
 
 The basic attribute binding in HTML is:
 
-    `<component attrName="[[controller:channel:defaultValue]]" ... >`
+    `<component attrName="[[controller:channel=defaultValue]]" ... >`
 
 Where
 
@@ -87,7 +87,7 @@ It is possible to use default values for controller and channel:
 
     <body controller="defaultController">
         ...
-        <component id="ID" attrName="[[::defaultValue]]" >
+        <component id="ID" attrName="[[:=defaultValue]]" >
 
   The binding would be with the variable ID-attrName in the defaultController.
 
@@ -101,11 +101,11 @@ It is possible to use default values for controller and channel:
 
 The full sytax is something like:
 
-    `<component style="color:[[:channel1:blue]];background-color:[[:channel2:red]]" ...>`
+    `<component style="color:[[:channel1=blue]];background-color:[[:channel2=red]]" ...>`
 
 That could be simplified to:
 
-    `<component id="ID" style="color:blue;background-color:red" ...>`
+    `<component id="ID" style="color=blue;background-color=red" ...>`
 
 And also to:
 
