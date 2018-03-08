@@ -14,12 +14,21 @@ class StyleManager {
   Map<String, ObservableEvent<String>> register = <String, ObservableEvent<String>>{};
 
   ///
+  /// Compose the name prefix
+  ///
+  String calculatePrefix() {
+    final String hash = target.hashCode.toString();
+    final String id = target.id.isNotEmpty ? target.id : target.tagName;
+    return '${id}_$hash<style>';
+  }
+
+  ///
   /// Define a new property observable
   ///
   ObservableEvent<String> define(String name) {
     final ObservableEvent<String> entry = new ObservableEvent<String>(name)
         ..setType(TYPE_STRING)
-        ..prefix = '${target.id}<style>'
+        ..prefix = calculatePrefix()
         ..observe((String value) {
             target.style.setProperty(name, value);
         });

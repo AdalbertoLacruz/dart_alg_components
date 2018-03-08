@@ -1,16 +1,104 @@
+/* only works with customElements.define() */
 /*
 *:not(:defined) {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
-TODO: only works with customElements.define()
 */
 
 body {
   transition: opacity 0.3s linear;
 
-/*
   --paper-font-common-base: @apply;
-TODO: removed by DART
-*/
- }
+
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Roboto', 'Noto', sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  background-color: #eeeeee;
+  /* box-sizing: border-box; */
+  display: grid;
+  grid-template-rows: 50px auto 50px;
+  grid-row-gap: 5px;
+  --paper-button-ink-color: var(--paper-pink-900);
+}
+
+
+.header {
+  background-color: #5399c2;
+  grid-row: 1/2;
+}
+
+.content {
+  background-color: #bbeef6;
+  grid-row: 2/3;
+}
+
+.footer {
+  background-color: #54a2d0;
+  grid-row: 3;
+}
+
+alg-button {
+  background-color: lightBlue;
+}
+
+alg-show-log {
+  background-color: #70D070;
+  width: 800px;
+  height: 10vh;
+  overflow-y: auto;
+  margin-left: 20px
+}
+
+#container {
+  display: flex;
+}
+
+alg-paper-button {
+  font-family: 'Roboto', 'Noto', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+alg-paper-button.pink {
+  color: var(--paper-pink-a200);
+  --paper-button-ink-color: var(--paper-pink-a200);
+}
+
+alg-paper-button.pink:hover {
+  background-color: var(--paper-pink-100);
+}
+
+alg-paper-button.indigo {
+  background-color: var(--paper-indigo-500);
+  color: white;
+  --paper-button-raised-keyboard-focus: {
+    background-color: var(--paper-pink-a200) !important;
+    color: white !important;
+  };
+}
+
+alg-paper-button.indigo:hover {
+  background-color: var(--paper-indigo-400);
+}
+
+alg-paper-button.green {
+  background-color: var(--paper-green-500);
+  color: white;
+}
+
+alg-paper-button.green[active] {
+  background-color: var(--paper-red-500);
+}
+
+alg-paper-button.disabled {
+  color: white;
+}
+
+#container {
+  display: flex;
+}
+

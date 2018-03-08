@@ -49,9 +49,10 @@ class ObservableMessage extends Observable<dynamic> {
     this.value = value; // could use transformer
 
     final bool isTrigger = (trigger != null) ? trigger(this.value) : true;
-    if (isTrigger && (letRepeat || isNewValue))
-        dispatch();
-    if (controllerHandler != null && channel != null)
+    if (isTrigger && (letRepeat || isNewValue)) {
+      dispatch();
+      if (controllerHandler != null && channel != null)
         controllerHandler.fire(channel, this.value); // this.value yet transformed
+    }
   }
 }

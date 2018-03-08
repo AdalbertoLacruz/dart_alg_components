@@ -92,5 +92,5 @@ class AlgTest extends AlgComponent {
   /// Attributes managed by the component.
   @override
   List<String> observedAttributes() => super.observedAttributes()
-    ..addAll(<String>['att', 'color']);
+      + <String>['att', 'color'];
 }

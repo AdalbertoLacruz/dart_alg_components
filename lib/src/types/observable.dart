@@ -130,7 +130,8 @@ class Observable<T> {
     final T _data = data ?? value;
     linkers.forEach((Function handler) => handler(_data, context));
     // async calls only could receive parameters by value
-    new Future<void>(() => observers.forEach((Function handler) => handler(_data)));
+    observers.forEach((Function handler) =>
+        new Future<void>(() => handler(_data)));
   }
 
 //  /**

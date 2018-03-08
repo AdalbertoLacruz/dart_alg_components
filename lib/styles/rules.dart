@@ -19,8 +19,46 @@ class Rules {
   static String apply(HtmlElement element, String id) {
     String rule = getComputedProperty(element, id).trim();
     if (rule.startsWith('{'))
-        rule = rule.substring(1, rule.length - 1);
+      rule = rule.substring(1, rule.length - 1);
     return rule;
+  }
+
+  ///
+  /// Search for something like `--change-rule: @apply;`
+  /// in the head style rule and replaces it, until no more found.
+  /// NOTE: `@apply --change-rule;` would be better syntax, but css system remove it in cssRules.
+  /// For efficiency, the head sheets must have `apply` ATTRIBUTE to be processed.
+  ///
+  static void applySheet() {
+    final RegExp re = new RegExp(r'(--[\w-]+): @apply;');
+
+    document.head.querySelectorAll('[apply]').forEach((Element sheetDocument) {
+      final CssStyleSheet sheet = (sheetDocument is LinkElement)
+          ? sheetDocument.sheet
+          : (sheetDocument is StyleElement) ? sheetDocument.sheet : null;
+      if (sheet == null) return;
+
+      final List<CssRule> cssRules = sheet.cssRules;
+      for (int i = 0; i < cssRules.length; i++) {
+        String cssText = cssRules[i].cssText;
+        final List<Match> matchs = re.allMatches(cssText);
+        if (matchs?.isNotEmpty ?? false) {
+          matchs.forEach((Match match) {
+            cssText = cssText.substring(0, match.start) + use(match.group(1)) + cssText.substring(match.end);
+            cssRuleReplace(sheet, i, cssText);
+          });
+        }
+      }
+    });
+  }
+
+  ///
+  /// Replaces the cssText in a styleSheet rule
+  ///
+  static void cssRuleReplace(CssStyleSheet sheet, int index, String cssText) {
+    sheet
+      ..deleteRule(index)
+      ..insertRule(cssText, index);
   }
 
   ///

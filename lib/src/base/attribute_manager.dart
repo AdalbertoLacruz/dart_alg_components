@@ -55,6 +55,15 @@ class AttributeManager {
 //  List<Function> unsubscribeHandlers = <Function>[];
 
   ///
+  /// Compose the name prefix
+  ///
+  String calculatePrefix() {
+    final String hash = target.hashCode.toString();
+    final String id = target.id.isNotEmpty ? target.id : target.tagName;
+    return '${id}_$hash<attr>';
+  }
+
+  ///
   /// Update the [value] for an attribute [name]
   ///
   void change(String name, dynamic value) => get(name)
@@ -83,10 +92,9 @@ class AttributeManager {
     if (register.containsKey(name)) {
       entry = register[name];
     } else {
-      final String id = target.id.isNotEmpty ? target.id : target.tagName;
       entry = new ObservableEvent<T>(name)
           ..setType(type)
-          ..prefix = '$id<attr>';
+          ..prefix = calculatePrefix();
       register[name] = entry;
     }
   }

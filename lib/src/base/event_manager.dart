@@ -6,8 +6,7 @@ part of core.alg_components;
 /// Manages mouse and keyboard events
 ///
 class EventManager {
-  /// Element that fire events. HtmlElement
-//  AlgComponent target;
+  /// Element that fire events: AlgComponent | document | window
   dynamic target;
 
   /// Constructor
@@ -33,6 +32,19 @@ class EventManager {
   Map<String, EventItem<dynamic>> register = <String, EventItem<dynamic>>{};
 
   ///
+  /// Compose the name prefix
+  ///
+  String calculatePrefix() {
+    if (target is HtmlElement) {
+      final String hash = target.hashCode.toString();
+      final String id = target.id.isNotEmpty ? target.id : target.tagName;
+      return '${id}_$hash<event>';
+    } else {
+      return prefix;
+    }
+  }
+
+  ///
   /// Add an item to the register
   /// Ex.: define<Event>(
   ///   'trackStart',
@@ -41,7 +53,8 @@ class EventManager {
   ///
   void define<T>(String eventName, ObservableEvent<T> data, { List<String> visibility}) {
     entry = register[eventName] = new EventItem<T>(data: data)
-        ..name = eventName;
+        ..name = eventName
+        ..data.prefix = calculatePrefix();
 
     if (visibility != null)
       visibleTo(eventName, visibility);
@@ -65,13 +78,7 @@ class EventManager {
 
     _entry.init(_entry, this); // reentry code
     _entry.name = _entry.data.name = eventName;
-
-    if (target is HtmlElement) {
-      final String id = target.id.isNotEmpty ? target.id : target.tagName;
-      _entry.data.prefix = '$id<event>';
-    } else {
-      _entry.data.prefix = prefix;
-    }
+    _entry.data.prefix = calculatePrefix();
     return entry = _entry;
   }
 
@@ -83,7 +90,7 @@ class EventManager {
   ///
   /// Returns the Storage for the event. If not exist then creates it.
   ///
-  ObservableEvent<Event> getObservable(String eventName) => get(eventName).data;
+  ObservableEvent<dynamic> getObservable(String eventName) => get(eventName).data;
 
   /*
    * True if eventName is defined in register

@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 
-<!--
-@copyright 2017-2018 adalberto.lacruz@gmail.com
--->
+<!-- @copyright 2017-2018 adalberto.lacruz@gmail.com -->
 
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test_components</title>
-    <link rel="stylesheet" apply type="text/css" href="index.css">
-    <script defer src="main.dart" type="application/dart"></script>
-    <script defer src="packages/browser/dart.js"></script>
-</head>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>alg-components demo</title>
+      <link rel="stylesheet" apply type="text/css" href="index.css">
+      <script defer src="main.dart" type="application/dart"></script>
+      <script defer src="packages/browser/dart.js"></script>
+      <style apply>
+        h1 {
+          color: red;
+        }
+      </style>
+  </head>
 
-<body style="opacity: 0" controller="app-controller">
-  <button id="btn-save">Save log</button>
-  <alg-test id="test1" att="value">hello</alg-test>
-  <div>
-    <style>
-      .green {
-        --test: {
-          color: green;
-        };
-      }
-    </style>
-    <alg-test id="test2" class="green" color="yellow" boolattr>Pep</alg-test>
+  <body style="opacity: 0" controller="app-controller">
+    <div class="header">
+      <button id="btn-save">Save log</button>
+      Header
+    </div>
+    <div class="content">
+      <h2>Content</h2>
+      <alg-button id="btn1"
+        text="{{:btn1-text}}"
+        color="[[app-controller:btn1-color]]"
+        style="margin:[[:btn1-style-margin=40px]];background-color=yellow">OK</alg-button>
+      <alg-button id="btn2"
+        text="{{:btn2-text=15}}"
+        color="[[app-controller:btn2-color]]"
+        on-click="[[app-controller:BTN2_CLICK]]"
+        style="background-color">&times;</alg-button>
+      <alg-button id="btn1"
+        text color style="margin;background-color;color=black" attr="25">ok</alg-button>
 
-    <alg-button id="btn1"
-                text="{{:btn1-text}}"
-                color="[[app-controller:btn1-color]]"
-                style="margin:[[:btn1-style-margin=40px]];background-color=yellow">OK</alg-button>
-    <alg-button id="btn2"
-                text="{{:btn2-text=15}}"
-                color="[[app-controller:btn2-color]]"
-                on-click="[[app-controller:BTN2_CLICK]]"
-                style="background-color">&times;</alg-button>
-    <alg-button id="btn1"
-                text color style="margin;background-color;color=black" attr="25">
-      <alg-test>ok</alg-test>
-    </alg-button>
-  </div>
-</body>
+      <br><br>
+      <div id="container">
+        <alg-paper-button id="btn2" class="pink">link</alg-paper-button>
+        <alg-paper-button id="btn2" raised class="indigo" on-action>raised</alg-paper-button>
+        <alg-paper-button id="btn2" toggles raised class="green" on-change>toggles</alg-paper-button>
+        <alg-paper-button id="btn2" disabled>disabled</alg-paper-button>
+      </div>
+    </div>
+    <div class="footer">
+      Footer
+    </div>
+  </body>
 </html>

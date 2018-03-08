@@ -27,7 +27,7 @@ class BinderParser {
         isEventBinder = true;
         controller = this.defaultController;
         if (id != '')
-            channel = '${id}_${handler.toUpperCase()}';
+            channel = '${id}_$handler'.toUpperCase();
       } else {
         isEventBinder = getAttributeBinder(_value);
       }

@@ -1,12 +1,11 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-//part of core.alg_components;
 import '../src/core_library.dart';
 
 ///
 /// One button test component
 ///
-class AlgButton extends AlgComponent {
+class AlgButton extends AlgComponent with AlgActionMixin {
   ///
   static String tag = 'alg-button';
 
@@ -30,14 +29,19 @@ class AlgButton extends AlgComponent {
   @override
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()..setInnerHtml('''
     <style>
-      :host {
-        font-size: 2em;
+      button {
+        color: #cb6918;
+        cursor: pointer;
+      }
+      #in {
+        line-height: 2;
       }
     </style>''', validator: nodeValidatorStyle);
 
   @override
   void deferredConstructor() {
     super.deferredConstructor();
+    algActionConstructor(this);
 
     attributeManager
       ..define('color', type: TYPE_STRING)
@@ -50,16 +54,8 @@ class AlgButton extends AlgComponent {
         ids['in'].innerHtml = value.toString();
       });
 
-    eventManager
-      ..onLink('click', (Event event, dynamic context) {
-        if (!(EventExpando.getCaptured(event).length > 1))
-          print('onLink CLICK BTN captured.......');
-      })
-
-      ..on('pressed', (bool value) {
-        print('pressed: $value');
-      })
-      ..subscribe();
+    messageManager
+      ..define('click', toEvent: true, isPreBinded: true);
   }
 
   ///
@@ -71,6 +67,6 @@ class AlgButton extends AlgComponent {
   /// Attributes managed by the component.
   @override
   List<String> observedAttributes() => super.observedAttributes()
-    ..addAll(<String>['color', 'text', 'on-click']);
-
+      + <String>['color', 'text', 'on-click']
+      + algActionObservedAttributes();
 }

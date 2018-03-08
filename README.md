@@ -43,6 +43,16 @@ must be linked with components by bidirectional bindings and buses.
 Each component has a presentation layer and code for behavior and
 controller binding.
 
+## Component subsystems
+In order to minimize the properties/methods at component level,
+the internal architecture is based in a set of managers:
+
+- TemplateManager
+- AttributeManager
+- StyleManager
+- EventManager
+- MessageManager
+
 ## StyleSheets
 
 Css var and calc are great, but we don't have mixins. Polymer has
@@ -149,6 +159,27 @@ for a full component.
 
 Each mixin, defines a sub-behavior. A component could have various mixins,
 such as action, overlay, resizable, ...
+
+## Component Lifecycle
+- register -> once per class
+
+And for instance:
+
+- created: -> html & style
+
+- attached:
+
+    -- deferredConstructor
+
+    -- addStandardAttributes
+
+    -- postDeferredConstructor
+
+- domLoaded: -> read all attributes
+
+- attributesChanged: -> subscribe to controller / modify attribute
+
+- detached: -> unsubscribe
 
 ## Status
 Browser compatibility: Chrome latest versions.

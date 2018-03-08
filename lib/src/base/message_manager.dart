@@ -19,6 +19,15 @@ class MessageManager {
   Map<String, ObservableMessage> register = <String, ObservableMessage>{};
 
   ///
+  /// Compose the name prefix
+  ///
+  String calculatePrefix() {
+    final String hash = target.hashCode.toString();
+    final String id = target.id.isNotEmpty ? target.id : target.tagName;
+    return '${id}_$hash<msg>';
+  }
+
+  ///
   /// Defines a message.
   /// toAttribute, toEvent = bool true/String name
   ///
@@ -27,7 +36,9 @@ class MessageManager {
     if (register.containsKey(name)) {
       entry = register[name];
     } else {
-      entry = register[name] = new ObservableMessage(name);
+      entry = register[name] = new ObservableMessage(name)
+          ..prefix = calculatePrefix();
+
       if (toAttribute != null)
           entry.toAttribute = toAttribute;
       if (toEvent != null)
@@ -79,21 +90,21 @@ class MessageManager {
   /// Propagates changes in events/attributes to messages
   ///
   void subscribeTo() {
-//    bool isEventManager = false;
+    bool isEventManager = false;
 
     register.forEach((String key, ObservableMessage entry) {
       if (entry.toEvent != null) {
-//        final String name = (entry.toEvent is bool) ? key : entry.toEvent;
-//        target.eventManager.on(name, (dynamic value) { entry.update(value); }); // TODO
-//        isEventManager = true;
+        final String name = (entry.toEvent is bool) ? key : entry.toEvent;
+        target.eventManager.on(name, (dynamic value) { entry.update(value); }); // TODO
+        isEventManager = true;
       } else if (entry.toAttribute != null) {
         final String name = (entry.toAttribute is bool) ? key : entry.toAttribute;
         target.attributeManager.onChange(name, (dynamic value) { entry.update(value); });
       }
     });
 
-//    if (isEventManager)  // TODO
-//      target.eventManager.subscribe();
+    if (isEventManager)  // TODO
+      target.eventManager.subscribe();
   }
 
   ///
@@ -105,6 +116,7 @@ class MessageManager {
 
   ///
   /// Function to calculate when fire the message
+  /// handler(value)
   ///
   void trigger(Function handler) {
     entry.trigger = handler;
