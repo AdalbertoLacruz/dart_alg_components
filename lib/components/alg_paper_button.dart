@@ -31,8 +31,8 @@ class AlgPaperButton extends AlgPaperButtonBehavior {
 
   ///
   static void register() {
-    AlgComponent.register(tag, AlgPaperButton);
     AlgComponent.register('alg-paper-ripple', AlgPaperRipple);
+    AlgComponent.register(tag, AlgPaperButton);
   }
 
   @override
@@ -114,12 +114,12 @@ class AlgPaperButton extends AlgPaperButtonBehavior {
     paper-ripple {
       color: var(--paper-button-ink-color);
     }
-  </style>''', validator: nodeValidatorStyle);
+  </style>''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   @override
   TemplateElement createTemplate() => super.createTemplate()..setInnerHtml('''
   <slot></slot>
-  ''', validator: nodeValidator);
+  ''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   @override
   void deferredConstructor() {

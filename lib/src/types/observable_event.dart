@@ -18,10 +18,7 @@ class ObservableEvent<T> extends Observable<T> {
   ///
   /// Handler to subscribe to other observables
   ///
-//  void receiverHandler(dynamic received) => update(received);
-  void receiverHandler(dynamic received) {
-    update(received);
-  }
+  void receiverHandler(dynamic received) => update(received);
 
   ///
   /// Set [item] [attribute] in a value change.
@@ -36,23 +33,22 @@ class ObservableEvent<T> extends Observable<T> {
   }) {
     final String _attribute = attribute ?? name;
     Function handler;
+
     if (this.type == TYPE_BOOL) {
       handler = (bool value) => FHtml.attributeToggle(element, _attribute, force: value, type: type);
       observe(handler);
-      if (value != null && init)
-          handler(value);
+      if (value != null && init) handler(value);
     } else if (this.type == TYPE_STRING || this.type == TYPE_NUM) {
       handler = (dynamic value) {
         if (value != null) {
           final String _value = (value is! String) ? value.toString() : value;
           element.setAttribute(_attribute, _value);
         } else {
-          element.attributes.remove(_attribute);
+          if (element.attributes.containsKey(_attribute)) element.attributes.remove(_attribute);
         }
       };
       observe(handler);
-      if (init)
-          handler(value);
+      if (init) handler(value);
     }
   }
 
@@ -60,8 +56,9 @@ class ObservableEvent<T> extends Observable<T> {
   /// Set class in a value change true/false
   ///
   void onChangeReflectToClass(HtmlElement element, String className) {
-    if (type == TYPE_BOOL)
+    if (type == TYPE_BOOL) {
       observe((bool value) => element.classes.toggle(className, value));
+    }
   }
 
   ///

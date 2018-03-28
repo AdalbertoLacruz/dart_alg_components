@@ -22,7 +22,7 @@ class ObservableMessage extends Observable<dynamic> {
   /// String = name to AttributeManager
   dynamic toAttribute;
 
-  /// true, use EventManager, same name.
+  /// bool true, use EventManager, same name.
   /// String = name to EventManager
   dynamic toEvent;
 
@@ -39,8 +39,8 @@ class ObservableMessage extends Observable<dynamic> {
   ///
   @override
   void update(dynamic value , {bool force = false}) { // force not used
-    if (disabled)
-      return;
+    if (disabled) return;
+
     if (delayed) {
       delayedValue = value;
       return;
@@ -51,8 +51,9 @@ class ObservableMessage extends Observable<dynamic> {
     final bool isTrigger = (trigger != null) ? trigger(this.value) : true;
     if (isTrigger && (letRepeat || isNewValue)) {
       dispatch();
-      if (controllerHandler != null && channel != null)
+      if (controllerHandler != null && channel != null) {
         controllerHandler.fire(channel, this.value); // this.value yet transformed
+      }
     }
   }
 }

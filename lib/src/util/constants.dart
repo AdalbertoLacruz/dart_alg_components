@@ -1,7 +1,5 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-//part of core.alg_components;
-
 // Observable types
 ///
 const String TYPE_BOOL = 'bool';

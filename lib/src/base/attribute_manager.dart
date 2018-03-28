@@ -14,24 +14,7 @@ class AttributeManager {
   /// Define: disabled
   ///
   AttributeManager(AlgComponent this.target) {
-    define<bool>('aria-disabled', type: TYPE_BOOL);
-    reflect(type: 'true-false');
-
-    define<bool>('disabled', type: TYPE_BOOL);
-    reflect();
-    onChangeModify('aria-disabled');
-    on((bool disabled) {
-      target.style.setProperty('pointerEvents', disabled ? 'none' : '');
-      if (disabled) {
-        target
-            ..oldTabIndex = target.tabIndex
-            ..tabIndex = -1
-            ..blur();
-      } else {
-        if (target.oldTabIndex != null)
-            target.tabIndex = target.oldTabIndex;
-      }
-    });
+    _setInitialAttributes();
   }
 
   /// Attributes we have try to subscribe. Don't try anymore.
@@ -104,8 +87,9 @@ class AttributeManager {
   /// if [important] == true, load any case.
   ///
   void defineDefault(String name, dynamic value, {bool important = false}) {
-    if (important || !defaults.containsKey(name))
+    if (important || !defaults.containsKey(name)) {
       defaults[name] = value;
+    }
   }
 
   ///
@@ -122,7 +106,7 @@ class AttributeManager {
   dynamic getValue(String name) => get(name).value;
 
   ///
-  /// true is Binded to the controller
+  /// true if it is Binded to the controller
   ///
   bool isSubscriptionTried(String name) =>
       binded.contains(name) ? true : (binded..add(name)) == null; // false
@@ -151,8 +135,7 @@ class AttributeManager {
   /// Action on attribute change. Use toAttribute() to identify the attribute.
   ///
   void on(Function handler) {
-    if (handler == null)
-      return;
+    if (handler == null) return;
 
     entry.observe(handler);
   }
@@ -192,8 +175,7 @@ class AttributeManager {
   /// Immediate Action on attribute change.
   ///
   void onLink(Function handler) {
-    if (handler == null)
-      return;
+    if (handler == null) return;
 
     entry.link(handler);
   }
@@ -234,6 +216,30 @@ class AttributeManager {
   }
 
   ///
+  /// Define disabled/aria-disabled
+  ///
+  void _setInitialAttributes() {
+    define<bool>('aria-disabled', type: TYPE_BOOL);
+    reflect(type: 'true-false');
+
+    define<bool>('disabled', type: TYPE_BOOL);
+    reflect();
+    onChangeModify('aria-disabled');
+    on((bool disabled) {
+      target.style.setProperty('pointerEvents', disabled ? 'none' : '');
+      if (disabled) {
+        target
+          ..oldTabIndex = target.tabIndex
+          ..tabIndex = -1
+          ..blur();
+      } else {
+        if (target.oldTabIndex != null)
+          target.tabIndex = target.oldTabIndex;
+      }
+    });
+  }
+
+  ///
   /// Set entry to the attribute, for further processing
   ///
   void toAttribute(String name) => get(name);
@@ -266,15 +272,16 @@ class AttributeManager {
   /// If not found, we use the first controller instantiated.
   ///
   static void findController(AlgComponent target) {
-    if (target.controller != null)
-        return;
+    if (target.controller != null) return;
 
     final List<HtmlElement> elementsToSet = <HtmlElement>[];
     dynamic controller; // String | ClassInstance
     HtmlElement element = target;
 
-    while((element?.localName != 'html' ?? false) && controller == null) {
-      if (element is AlgComponent &&  element.controller != null) {
+    while ((element?.nodeType != Node.DOCUMENT_FRAGMENT_NODE ?? false)
+        && (element?.localName != 'html' ?? false)
+        && controller == null) {
+      if (element is AlgComponent && element.controller != null) {
         controller = element.controller;
       } else {
         elementsToSet.add(element);
@@ -302,15 +309,12 @@ class AttributeManager {
   /// In that case, subscribe the attribute to changes in the controller register.
   ///
   static void subscribeBindings(AlgComponent target, String name, String value) {
-    if (value == null)
-        return null;
+    if (value == null) return null;
 
     final BinderParser binderParser = new BinderParser(name, value, target.controller, target.id);
 
-    if (binderParser.isEventBinder)
-      return attributeIsEvent(target, binderParser);
-    if (binderParser.isStyleBinder)
-      return attributeIsStyle(target, binderParser);
+    if (binderParser.isEventBinder) return attributeIsEvent(target, binderParser);
+    if (binderParser.isStyleBinder) return attributeIsStyle(target, binderParser);
     return attributeIsBinder(target, binderParser);
   }
 
@@ -372,8 +376,7 @@ class AttributeManager {
         ? AlgController.controllers[binderParser.controller]
         : binderParser.controller;
 
-    if (controller == null)
-        return entry.update(binderParser.value);
+    if (controller == null) return entry.update(binderParser.value);
 
     final String channel = binderParser.autoChannel;
     String value = binderParser.autoValue;
@@ -388,14 +391,13 @@ class AttributeManager {
             ..bindedController = controller;
       }
 
-      if (binderParser.isSync)
-          attributeManager.reflect();
+      if (binderParser.isSync) attributeManager.reflect();
     }
 
     value ??= binderParser.autoValue; // support attribute without value
-    if (!binderParser.isSync && status.hasChannel)
-        attributeManager.removeAttribute(attrName);
-    if (value != null)
-        entry.update(value);
+    if (!binderParser.isSync && status.hasChannel) {
+      attributeManager.removeAttribute(attrName);
+    }
+    if (value != null) entry.update(value);
   }
 }

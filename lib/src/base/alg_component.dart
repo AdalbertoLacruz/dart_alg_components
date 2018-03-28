@@ -14,6 +14,7 @@ class AlgComponent extends HtmlElement {
   AlgComponent.created() :super.created() {
     TemplateManager.createShadowElement(this);
     TemplateManager.insertStyle(this);
+    TemplateManager.saveTemplateInfo(this);
 
     new Future<Null>(() { domLoaded(); });
   }
@@ -87,12 +88,9 @@ class AlgComponent extends HtmlElement {
   void detached() {
     super.detached();
 
-    if (_attributeManager != null)
-      attributeManager.unsubscribe();
-    if (_eventManager != null)
-      eventManager.unsubscribe();
-    if (_styleManager != null)
-      styleManager.unsubscribe();
+    if (_attributeManager != null) attributeManager.unsubscribe();
+    if (_eventManager != null) eventManager.unsubscribe();
+    if (_styleManager != null) styleManager.unsubscribe();
   }
 
   // ------------------------------------------------- Register
@@ -111,7 +109,7 @@ class AlgComponent extends HtmlElement {
     if (!registered.contains(tag)) {
       registered.add(tag);
       document.registerElement(tag, componentClass);
-      // window.customElements.define(tag, componentClass); // standard, but not supported
+//       window.customElements.define(tag, componentClass); // standard, but not supported
     }
   }
 
@@ -122,18 +120,6 @@ class AlgComponent extends HtmlElement {
 
   /// True if component inserted in a stable dom
   bool loadedComponent = false;
-
-  /// For innerHtml template validation
-  final NodeValidatorBuilder nodeValidator = new NodeValidatorBuilder()
-    ..allowHtml5()
-    ..allowElement('slot')
-    ..allowSvg()
-//    ..allowCustomElement('alg-tt', attributes: <String>['other'])
-    ..allowTemplating();
-
-  /// For innerHTML templateStyle validation
-  final NodeValidatorBuilder nodeValidatorStyle = new NodeValidatorBuilder()
-    ..allowElement('style');
 
   /// cache for tabIndex in disabled
   int oldTabIndex;
@@ -168,7 +154,12 @@ class AlgComponent extends HtmlElement {
   /// Build the basic static template for style
   ///
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()
-    ..setInnerHtml('<style></style>', validator: nodeValidatorStyle);
+    ..setInnerHtml('<style></style>', treeSanitizer: NodeTreeSanitizer.trusted);
+
+  ///
+  /// Recover component innerHtml to original template state
+  ///
+  void restoreTemplate() => TemplateManager.restoreTemplate(this);
 
   // ------------------------------------------------- Bindings
 

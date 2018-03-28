@@ -3,6 +3,8 @@
 part of core.alg_components;
 
 ///
+/// Style bindings for the component
+///
 class StyleManager {
   /// Element to set styles
   HtmlElement target;
@@ -10,7 +12,7 @@ class StyleManager {
   /// Constructor
   StyleManager(HtmlElement this.target);
 
-  /// style property, observable
+  /// style storage {property, observable}
   Map<String, ObservableEvent<String>> register = <String, ObservableEvent<String>>{};
 
   ///

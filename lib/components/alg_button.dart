@@ -24,7 +24,7 @@ class AlgButton extends AlgComponent with AlgActionMixin {
   @override
   TemplateElement createTemplate() => super.createTemplate()..setInnerHtml('''
     <button id="but"><slot></slot><span id="in"></span></button>
-    ''', validator: nodeValidator);
+    ''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   @override
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()..setInnerHtml('''
@@ -36,7 +36,7 @@ class AlgButton extends AlgComponent with AlgActionMixin {
       #in {
         line-height: 2;
       }
-    </style>''', validator: nodeValidatorStyle);
+    </style>''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   @override
   void deferredConstructor() {

@@ -39,14 +39,10 @@ class MessageManager {
       entry = register[name] = new ObservableMessage(name)
           ..prefix = calculatePrefix();
 
-      if (toAttribute != null)
-          entry.toAttribute = toAttribute;
-      if (toEvent != null)
-          entry.toEvent = toEvent;
-      if (isPreBinded != null)
-          entry.isPreBinded = isPreBinded;
-      if (letRepeat != null)
-          entry.letRepeat = letRepeat;
+      if (toAttribute != null) entry.toAttribute = toAttribute;
+      if (toEvent != null) entry.toEvent = toEvent;
+      if (isPreBinded != null) entry.isPreBinded = isPreBinded;
+      if (letRepeat != null) entry.letRepeat = letRepeat;
     }
     return entry;
   }
@@ -81,8 +77,8 @@ class MessageManager {
   /// Action on message fire
   ///
   void on(String name, Function handler) {
-    if (handler == null)
-        return;
+    if (handler == null) return;
+
     get(name).observe(handler);
   }
 
@@ -95,7 +91,7 @@ class MessageManager {
     register.forEach((String key, ObservableMessage entry) {
       if (entry.toEvent != null) {
         final String name = (entry.toEvent is bool) ? key : entry.toEvent;
-        target.eventManager.on(name, (dynamic value) { entry.update(value); }); // TODO
+        target.eventManager.on(name, (dynamic value) { entry.update(value); });
         isEventManager = true;
       } else if (entry.toAttribute != null) {
         final String name = (entry.toAttribute is bool) ? key : entry.toAttribute;
@@ -103,8 +99,7 @@ class MessageManager {
       }
     });
 
-    if (isEventManager)  // TODO
-      target.eventManager.subscribe();
+    if (isEventManager) target.eventManager.subscribe();
   }
 
   ///

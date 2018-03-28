@@ -1,9 +1,11 @@
 library core.alg_components;
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:html';
 import 'dart:math' as Math;
 import '../controller/alg_controller.dart';
+import '../icons/icons_library.dart';
 import '../src/base/binder_parser.dart';
 import '../src/types/observable.dart';
 import '../styles/styles_library.dart';
@@ -19,6 +21,7 @@ part '../src/base/event_manager.dart';
 part '../src/base/message_manager.dart';
 part '../src/base/style_manager.dart';
 part '../src/base/template_manager.dart';
+part '../src/behaviors/alg_iron_icon_behavior.dart';
 part '../src/behaviors/alg_paper_button_behavior.dart';
 part '../src/mixins/alg_action_mixin.dart';
 part '../src/mixins/alg_iron_button_state_mixin.dart';

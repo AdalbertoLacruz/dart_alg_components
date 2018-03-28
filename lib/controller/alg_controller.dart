@@ -27,8 +27,7 @@ class AlgController {
   ///
   void change(String channel, dynamic value) {
     final Observable<dynamic> entry = register[channel];
-    if (entry != null)
-        entry.update(value);
+    if (entry != null) entry.update(value);
   }
 
   ///
@@ -39,8 +38,7 @@ class AlgController {
       ..setType(type, useTransformer: true)
       ..prefix = this.name;
 
-    if (value != null)
-      entry.value = value;
+    if (value != null) entry.value = value;
 
     return register[name] = entry;
   }
@@ -49,9 +47,6 @@ class AlgController {
   /// The controller receives (up) a message from the bus
   ///
   void fire(String channel, dynamic message) {
-//    final Observable<dynamic> entry = register[channel];
-//    if (entry != null)
-//        entry.update(message);
     register['bus'].update(new BusMessage(channel, message));
   }
 
@@ -60,9 +55,7 @@ class AlgController {
   ///
   dynamic getValue(String channel) {
     final Observable<dynamic> entry = register[channel];
-    if (entry != null)
-      return entry.value;
-    return null;
+    return entry != null ? entry.value : null;
   }
 
   ///
@@ -80,8 +73,8 @@ class AlgController {
 
     status.hasChannel = true;
     final Observable<dynamic> entry = register[channel]..observe(handler);
-    if (defaultValue != null)
-      entry.update(defaultValue);
+    if (defaultValue != null) entry.update(defaultValue);
+
     return entry.value;
   }
 
@@ -90,8 +83,7 @@ class AlgController {
   ///
   void unSubscribe(String channel, Function handler) {
     final Observable<dynamic> entry = register[channel];
-    if (entry != null)
-        entry.unsubscribe(handler);
+    if (entry != null) entry.unsubscribe(handler);
   }
 }
 
@@ -114,11 +106,12 @@ class BusMessage {
 }
 
 // --------------------------------------------------- ControllerStatus
+
 ///
 /// Status in controller operations
 ///
 class ControllerStatus {
-  /// Channel found in controller register
+  /// True, channel found in controller register
   bool hasChannel;
 
   /// Constructor

@@ -3,7 +3,7 @@
 part of core.alg_components;
 
 ///
-/// Manages mouse and keyboard events
+/// Manages mouse and keyboard events (and others)
 ///
 class EventManager {
   /// Element that fire events: AlgComponent | document | window
@@ -61,15 +61,23 @@ class EventManager {
   }
 
   ///
+  /// Disable the observable Event
+  ///
+  void disableEvent(String eventName) => getObservable(eventName).disabled = true;
+
+  ///
+  /// Trigger an event
+  ///
+  void fire(String eventName, dynamic event) => getObservable(eventName).update(event);
+
+  ///
   /// Returns an entry from the register.
   /// If not exist, then create and initialize it.
   ///
   EventItem<dynamic> get(String eventName) {
-    if (entry?.name == eventName)
-      return entry;
+    if (entry?.name == eventName) return entry;
 
-    if (register.containsKey(eventName))
-        return entry = register[eventName];
+    if (register.containsKey(eventName)) return entry = register[eventName];
 
     final EventItem<dynamic> _entry = (EventManager.definitions.containsKey(eventName)
         ? EventManager.definitions[eventName]
@@ -81,11 +89,6 @@ class EventManager {
     _entry.data.prefix = calculatePrefix();
     return entry = _entry;
   }
-
-  ///
-  /// Trigger an event
-  ///
-  void fire(String eventName, dynamic event) => getObservable(eventName).update(event);
 
   ///
   /// Returns the Storage for the event. If not exist then creates it.
@@ -114,8 +117,7 @@ class EventManager {
   /// Process the keyboard [event]
   ///
   void _keyHandler(KeyboardEvent event, Map<String, dynamic> context) {
-    if (event.repeat)
-        return;
+    if (event.repeat) return;
 
     // Build keyEvent
     String keyEvent = <String>['Alt', 'Control', 'Shift'].fold('', (String acc, String key) =>
@@ -137,10 +139,15 @@ class EventManager {
 
     if (keyRegister.containsKey(keyEvent)) {
       final KeyItem item = keyRegister[keyEvent];
-      if (item.linkers != null)
+      if (item.linkers != null) {
         item.linkers.forEach((Function handler) => handler(response));
-      if (item.observers != null)
-        new Future<void>(() => item.observers.forEach((Function handler) => handler(response)));
+      }
+      if (item.observers != null) {
+//        new Future<void>(() =>
+//            item.observers.forEach((Function handler) => handler(response)));
+        item.observers.forEach((Function handler) =>
+          new Future<void>(() => handler(response)));
+      }
     }
   }
 
@@ -149,7 +156,6 @@ class EventManager {
     final String normal = keyNormalizer[code] ??= keyNormalizer[key];
     return normal ?? key;
   }
-
 
   ///
   /// Subscription to the event.
@@ -202,11 +208,12 @@ class EventManager {
     attributeName ??= eventName;
     final EventItem<dynamic> item = get(eventName);
 
-    if (!item.hasAttributeReflected(attributeName))
+    if (!item.hasAttributeReflected(attributeName)) {
       item.data.onChangeReflectToAttribute(target ?? this.target,
           attribute: attributeName,
           type: attributeType,
           init: init);
+    }
   }
 
   ///
@@ -217,8 +224,9 @@ class EventManager {
     className ??= eventName;
     final EventItem<dynamic> item = get(eventName);
 
-    if (!item.hasClassReflected(className))
-        item.data.onChangeReflectToClass(target ?? this.target, className);
+    if (!item.hasClassReflected(className)) {
+      item.data.onChangeReflectToClass(target ?? this.target, className);
+    }
   }
 
   ///
@@ -242,8 +250,9 @@ class EventManager {
   ///
   void onKey(String events, Function handler, {bool link = false}) {
     events.trim().split(' ')..forEach((String eventName) {
-      if (eventName.isNotEmpty)
+      if (eventName.isNotEmpty) {
         _onKeySingle(eventName, handler, link: link);
+      }
     });
   }
 
@@ -302,8 +311,7 @@ class EventManager {
   ///
   void subscribeSwitch(String eventName) {
     final EventItem<dynamic> item = register[eventName];
-    if (item == null || item.switchSubscriber == null)
-        return;
+    if (item == null || item.switchSubscriber == null) return;
 
     item.switchListener = (Event event) => item.handler(item, event);
     target.addEventListener(eventName, item.switchListener);
@@ -326,8 +334,7 @@ class EventManager {
   /// if name != null, only unsubscribe to this event
   ///
   void unsubscribeMe(HtmlElement me, [String name]) {
-    if (!handlersRegister.containsKey(me))
-      return;
+    if (!handlersRegister.containsKey(me)) return;
 
     final List<HandlersRegisterItem> register = handlersRegister[me]
         ..removeWhere((HandlersRegisterItem item) {
@@ -335,11 +342,10 @@ class EventManager {
                 getObservable(item.eventName).unsubscribe(item.handler, isLink: item.isLink);
                 return true;
             }
-            return false;
+            return false; // to remove item
           });
 
-    if (register.isEmpty)
-      handlersRegister.remove(me);
+    if (register.isEmpty) handlersRegister.remove(me);
   }
 
   ///
@@ -347,8 +353,7 @@ class EventManager {
   ///
   void unsubscribeSwitch(String eventName) {
     final EventItem<dynamic> item = register[eventName];
-    if (item == null || item.switchListener == null)
-      return;
+    if (item == null || item.switchListener == null) return;
 
     target.removeEventListener(eventName, item.switchListener);
     item.switchListener = null;
@@ -356,11 +361,10 @@ class EventManager {
 
   ///
   /// Make the eventName visible to the targets context
-  /// ex. visibleTo('mouseup', ['trackEnd']) => in trackEnd context['mouseup'] = observable
+  /// ex. visibleTo('mouseup', ['trackEnd']) => in trackEnd context['mouseup'] == observable
   ///
   void visibleTo(String eventName, List<String> targets) {
-    if (target == null)
-        return;
+    if (targets == null) return;
 
     final ObservableEvent<dynamic> item = getObservable(eventName);
     targets.forEach((String target) {
@@ -592,11 +596,6 @@ class EventManager {
   static EventManager get documentEvm => _documentEvm ??= new EventManager(document.documentElement);
   static EventManager _documentEvm;
 
-  /*
-
-  /** global (window) eventManager */
-  static get window() { return this._window || (this._window = new EventManager(window)); }
-   */
   /// EventManager associated to window
   static EventManager get windowEvm => _windowEvm ??= new EventManager(window)..prefix = 'window';
   static EventManager _windowEvm;
@@ -645,10 +644,8 @@ class EventExpando {
   static List<HtmlElement> getCaptured(Event event) => captured[event];
 }
 
-/*
-   * 'eventName': {
-   *    reflectToAttribute: Set(Attribute names)
- */
+///
+/// Event definition
 ///
 class EventItem<T> {
   /// Observable
@@ -737,7 +734,7 @@ class HandlersRegisterItem {
 }
 
 ///
-/// For Each keyEventName ('enter:keydown') the subscribers/linkers handlers list
+/// For each keyEventName ('enter:keydown') the subscribers/linkers handlers list
 ///
 class KeyItem {
   /// Sync handlers list

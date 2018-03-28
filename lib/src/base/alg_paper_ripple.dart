@@ -93,13 +93,13 @@ class AlgPaperRipple extends AlgComponent {
       :host(.circle) .wave-container {
         overflow: hidden;
       }
-    </style>''', validator: nodeValidatorStyle);
+    </style>''', treeSanitizer: NodeTreeSanitizer.trusted);
 
 
   @override
   TemplateElement createTemplate() => super.createTemplate()..setInnerHtml('''
     <div id="background"></div>
-    <div id="waves"></div>''', validator: nodeValidator);
+    <div id="waves"></div>''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   @override
   void deferredConstructor() {
@@ -124,6 +124,11 @@ class AlgPaperRipple extends AlgComponent {
         } else {
           new Future<void>(() => upAction(event));
         }
+      })
+
+      ..define('noink', type: TYPE_BOOL)
+      ..onLink((bool value, Map<String, dynamic> context) {
+        noink = value;
       })
 
       ..define('recenters', type: TYPE_BOOL);
@@ -161,7 +166,7 @@ class AlgPaperRipple extends AlgComponent {
   /// Attributes managed by the component.
   @override
   List<String> observedAttributes() => super.observedAttributes()
-      + <String>['center', 'recenters'];
+      + <String>['center', 'noink', 'recenters'];
 
   ///
   /// No standard attributes
@@ -251,9 +256,8 @@ class AlgPaperRipple extends AlgComponent {
       return false;
     });
 
-    if (ripples.isEmpty) {
-      animating.update(false);
-    }
+    if (ripples.isEmpty) animating.update(false);
+
 
     if (!shouldKeepAnimating && ripples.isEmpty) {
       onAnimationComplete();

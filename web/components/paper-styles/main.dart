@@ -2,18 +2,14 @@
 
 import 'dart:async';
 import 'dart:html';
-import 'package:dart_alg_components/dart_alg_components.dart';
-import '../demo_pages.dart';
+import 'package:dart_alg_components/components/all_components_library.dart';
 import 'styles.dart';
 
 Future<Null> main() async {
-//  await run(); // initialize components
-  defineShadow();
-  defineStyleSheetDefaultTheme();
-  definePaperMaterialStyles();
-  definePaperItemStyles();
-  defineSheetDemoPages();
+  algComponentsInit();
+
+  // Rules.use paper-material-styles & paper-item-styles don't work with @apply
   defineSheetMainStyles();
 
-  document.body.style.visibility = ''; // TODO: opacity
+  document.body.style.opacity = null;
 }

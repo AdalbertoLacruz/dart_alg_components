@@ -1,0 +1,5 @@
+/* @copyright 2017-2018 adalberto.lacruz@gmail.com */
+
+body {
+  transition: opacity 0.4s linear;
+}

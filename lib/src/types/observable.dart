@@ -1,6 +1,5 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-//part of core.alg_components;
 import 'dart:async';
 import '../base/alg_log.dart';
 import '../util/constants.dart';
@@ -56,12 +55,14 @@ class Observable<T> {
   }
 
   /// default transformer for bool value
-  static Function transformerBool =
-      (dynamic value) => (value is bool) ? value : (value == '' || value == 'true') ? true : false;
+  static Function transformerBool = (dynamic value) => (value is bool)
+      ? value
+      : (value == '' || value == 'true') ? true : false;
 
   /// default transformer for num value
-  static Function transformerNum =
-      (dynamic value) => (value is num) ? value : (value is String && value.isNotEmpty) ? num.parse(value) : null;
+  static Function transformerNum = (dynamic value) => (value is num)
+      ? value
+      : (value is String && value.isNotEmpty) ? num.parse(value) : null;
 
   /// Stop updated in true, until false. Then update with the last delayed value received.
   /// Used to avoid bumping.
@@ -257,8 +258,7 @@ class Observable<T> {
   /// If value is true, set to false and vice versa
   ///
   void toggle() {
-    if (value is bool)
-        update (!(value as bool));
+    if (value is bool) update (!(value as bool));
   }
 
   ///
@@ -277,16 +277,15 @@ class Observable<T> {
   /// Options: force = true, dispatch any case
   ///
   void update(dynamic value, {bool force = false}) {
-    if (disabled)
-        return;
+    if (disabled) return;
+
     if (delayed) {
       delayedValue = value;
       return;
     }
 
     this.value = value; // could use transformer
-    if (force || isNewValue)
-        dispatch();
+    if (force || isNewValue) dispatch();
   }
 }
 

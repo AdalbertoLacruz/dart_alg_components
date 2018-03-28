@@ -1,7 +1,5 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-//part of core.alg_components;
-
 ///
 /// Process bindings:
 ///   on-handler="*"
@@ -26,8 +24,9 @@ class BinderParser {
       if (_value.isEmpty) {
         isEventBinder = true;
         controller = this.defaultController;
-        if (id != '')
-            channel = '${id}_$handler'.toUpperCase();
+        if (id != '') {
+          channel = '${id}_$handler'.toUpperCase();
+        }
       } else {
         isEventBinder = getAttributeBinder(_value);
       }
@@ -37,7 +36,7 @@ class BinderParser {
       isAttributeBinder = true;
     } else {
       // no binding
-      this.value = value;
+      this.value = _value;
     }
   }
 
@@ -46,11 +45,11 @@ class BinderParser {
 
   /// Get channel in attrName="[[:channel:]]"" binding or guest a channel from id
   /// Returns null if not possible
-  String get autoChannel => id.isEmpty
-      ? ''
-      : channel.isNotEmpty ? channel :'$id-$attrName';
+  String get autoChannel => channel.isNotEmpty
+      ? channel
+      : id.isEmpty ? '' : '$id-$attrName';
 
-  /// Get defaultValue in attrName="[[:channel:defaultValue]]"" binding or value in attrName="value"
+  /// Get defaultValue in attrName="[[:channel:defaultValue]]" binding or value in attrName="value"
   String get autoValue => channel.isNotEmpty ? defaultValue : value;
 
   /// attr="[[*:channel:*]]"
@@ -115,8 +114,7 @@ class BinderParser {
   bool attributeIsHandler(String attrName) {
     final RegExp re = new RegExp(r'on-(\w+)');
     final Match match = re.matchAsPrefix(attrName);
-    if (match == null)
-      return false;
+    if (match == null) return false;
 
     handler = match.group(1);
     return true;
@@ -136,7 +134,7 @@ class BinderParser {
   }
 
   ///
-  /// Process de binding in attr="[[controller:channel:defaultValue]]"
+  /// Process binding in attr="[[controller:channel=defaultValue]]"
   ///   or attr={{*}}
   ///   or attr="value"
   ///   or attr="property:value"
@@ -146,14 +144,15 @@ class BinderParser {
     final RegExp re = new RegExp(r'[[{]{2}([a-z-_\d]*):{1}([a-z-_\d)]+)={0,1}([a-z-_\d)]+)*[\]}]{2}',
         caseSensitive: false);
     final Match match = re.matchAsPrefix(value);
-    if (match == null)
-      return false;
+    if (match == null) return false;
 
-    if (match.group(1).isNotEmpty) // we have default controller
+    if (match.group(1).isNotEmpty) { // we have default controller
       controller = match.group(1);
+    }
     channel = match.group(2);
     defaultValue = match.group(3);
     isSync = value.startsWith('{');
+
     return true;
   }
 
@@ -167,22 +166,19 @@ class BinderParser {
     // value is "property:[[]]"
     values.forEach((String value) {
       final String _value = getPropertyAndValue(value) ?? value; // property if exist goes to this.styleProperty
-      if (!getAttributeBinder(_value)) // no binding
-          getStylePropertyNoBinding(_value);
-      if (datas.length < values.length)
-          createData();
+      if (!getAttributeBinder(_value)) { // no binding
+        getStylePropertyNoBinding(_value);
+      }
+      if (datas.length < values.length) createData();
     });
 
     // Pointer to first data
-    if (datas.length > 1) {
-      index = -1;
-      next();
-    }
+    if (datas.length > 1) resetIndex();
   }
 
   ///
-  /// Get channel in style="property:[[:channel:]]"" binding or guest a channel from id
-  /// Returns null if not possible
+  /// Get channel in style="property:[[:channel:]]" binding or guest a channel from id
+  /// Returns empty string if not possible
   ///
   String getAutoStyleChannel(String property) => id.isEmpty
       ? ''
@@ -196,8 +192,7 @@ class BinderParser {
   String getPropertyAndValue(String value) {
     final RegExp re = new RegExp(r'([a-z-_\d]+):{1}[[{]{2}', caseSensitive: false);
     final Match match = re.firstMatch(value);
-    if (match == null)
-      return null;
+    if (match == null) return null;
 
     final String property = match.group(1);
     styleProperty = property;
@@ -212,8 +207,9 @@ class BinderParser {
   void getStylePropertyNoBinding(String value) {
     final List<String> values = value.split('=');
     styleProperty = values[0];
-    if (values.length > 1)
-        this.value = values[1];
+    if (values.length > 1) {
+      this.value = values[1];
+    }
   }
 
   ///
@@ -226,6 +222,14 @@ class BinderParser {
       return true;
     }
     return false;
+  }
+
+  ///
+  /// set index = 0
+  ///
+  void resetIndex() {
+    index = 0;
+    data = datas[0];
   }
 }
 

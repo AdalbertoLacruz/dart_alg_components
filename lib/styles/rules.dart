@@ -6,12 +6,15 @@ part of styles.alg_components;
 /// css and stylesheets management
 ///
 class Rules {
+  /// group definitions done - see isDefined(group)
+  static List<String> defined = <String>[];
+  
   /// rules/mixins storage
   static Map<String, String> register = <String, String>{};
 
-  /// group definitions done - see isDefined(group)
-  static List<String> defined = <String>[];
-
+  /// where insert a sheet in the head (after title)
+  static HtmlElement headInsertPoint;
+  
   ///
   /// Recovers a css rule [id] from the component style
   /// Rules such as { rule1; rule2; } => rule1; rule2;
@@ -41,13 +44,16 @@ class Rules {
       final List<CssRule> cssRules = sheet.cssRules;
       for (int i = 0; i < cssRules.length; i++) {
         String cssText = cssRules[i].cssText;
-        final List<Match> matchs = re.allMatches(cssText);
-        if (matchs?.isNotEmpty ?? false) {
-          matchs.forEach((Match match) {
-            cssText = cssText.substring(0, match.start) + use(match.group(1)) + cssText.substring(match.end);
-            cssRuleReplace(sheet, i, cssText);
-          });
+
+        bool changed = false;
+        Match match = re.firstMatch(cssText); // in re.allMatches start/end are changed after first replace
+        while (match != null ) {
+          cssText = cssText.substring(0, match.start)
+              + useInSheet(match.group(1)) + cssText.substring(match.end);
+          changed = true;
+          match = re.firstMatch(cssText);
         }
+        if (changed) cssRuleReplace(sheet, i, cssText);
       }
     });
   }
@@ -84,11 +90,22 @@ class Rules {
       element.getComputedStyle().getPropertyValue(id);
 
   ///
+  /// insert after title or previously added element
+  ///
+  static void insertInHead(HtmlElement item) {
+    headInsertPoint ??= document.head.querySelector('title');
+    headInsertPoint ??= document.head.lastChild;
+
+    headInsertPoint.insertAdjacentElement('afterEnd', item);
+
+    headInsertPoint = item;
+  }
+
+  ///
   /// Check if group is yet defined.
   ///
   static bool isDefined(String group) {
-    if (defined.contains(group))
-        return true;
+    if (defined.contains(group)) return true;
     defined.add(group);
 //    print('rules group added: $group');
     return false;
@@ -107,7 +124,8 @@ class Rules {
         ..setAttribute('type', 'text/css')
         ..setAttribute('id', id)
         ..setInnerHtml(css);
-    document.head.append(_sheet);
+
+    insertInHead(_sheet);
   }
 
   ///
@@ -116,6 +134,16 @@ class Rules {
   static String use(String id) => register.containsKey(id)
       ? register[id]
       : '/* $id */';
+
+  ///
+  /// Recover a css rule processing a sheet.
+  /// First test if use, then apply with body element
+  ///
+  static String useInSheet(String id) {
+    if (register.containsKey(id)) return register[id];
+    final String rule = apply(document.body, id);
+    return rule.isEmpty ? '/* $id */' : rule;
+  }
 }
 
 ///

@@ -19,12 +19,15 @@ class TemplateComponent extends AlgComponent {
   @override
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()..setInnerHtml('''
     <style>
-    </style>''', validator: nodeValidatorStyle);
+    </style>''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   @override
   TemplateElement createTemplate() => super.createTemplate()..setInnerHtml('''
     <div></div>
-    ''', validator: nodeValidator);
+    ''', treeSanitizer: NodeTreeSanitizer.trusted);
+
+  @override
+  String role = '';
 
   @override
   void deferredConstructor() {
@@ -42,7 +45,6 @@ class TemplateComponent extends AlgComponent {
     super.addStandardAttributes();
 //    + <String>[];
   }
-
 
   ///
   /// Component removed from the tree

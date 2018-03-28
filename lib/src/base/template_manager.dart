@@ -56,8 +56,7 @@ class TemplateManager {
     final Iterable<Match> matches = re.allMatches(html);
 
     for (Match m in matches) {
-      final String id = m.group(1);
-      result.add(id);
+      result.add(m.group(1));
     }
     return result;
   }
@@ -69,7 +68,10 @@ class TemplateManager {
   ///
   static void createShadowElement(AlgComponent target) {
     target.attachShadow(<String, String>{ 'mode': 'open'});
-    target.shadowRoot.append(target.template.content.clone(true));
+
+//    target.shadowRoot.append(target.template.content.clone(true));
+    // we need instantiate custom components
+    target.shadowRoot.append(document.importNode(target.template.content, true));
 
     // ids
     target.ids = getTemplateIds(target.localName)
@@ -102,7 +104,29 @@ class TemplateManager {
       return;
 
     target.shadowRoot.querySelector('style')
-      ..replaceWith(styleElement.content);
+      ..replaceWith(styleElement.content.children.first); // only <style>
+  }
+
+  ///
+  /// Recover shadowRoot to the original element template
+  /// Removes all childs except style and template
+  ///
+  static void restoreTemplate(AlgComponent target) {
+    final List<Node> nodes = target.shadowRoot.childNodes;
+    final int headerTotal = getItem(target.localName).headerTotal;
+
+    while (nodes.length > headerTotal) {
+      nodes.last.remove();
+    }
+  }
+
+  ///
+  /// save original template info
+  ///
+  static void saveTemplateInfo(AlgComponent target) {
+    getItem(target.localName)
+      ..headerElements = target.shadowRoot.children.length
+      ..headerTotal = target.shadowRoot.childNodes.length;
   }
 }
 
@@ -112,6 +136,12 @@ class TemplateManager {
 /// Each component cached in TemplateManager
 ///
 class TemplateItem {
+  /// Elements count in original template (header)
+  int headerElements = 0;
+
+  /// Total count in original template (header
+  int headerTotal = 0;
+
   /// style could be different when inserted in dom, affected by other css
   bool styleCouldBeCustom;
 

@@ -1,6 +1,5 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
-//part of core.alg_components;
 import '../src/core_library.dart';
 
 ///
@@ -23,14 +22,9 @@ class AlgTest extends AlgComponent {
   /// Build the template Element to be cloned in the shadow creation
   ///
   @override
-  TemplateElement createTemplate() {
-//    styleSheetColor();
-    nodeValidator..allowCustomElement('alg-tt', attributes: <String>['other']);
-
-    return super.createTemplate()..setInnerHtml('''
+  TemplateElement createTemplate() => super.createTemplate()..setInnerHtml('''
       <div id="d">Hey <alg-tt id="tt" other></alg-tt><slot></slot></div>
-    ''',  validator: nodeValidator);
-  }
+    ''',  treeSanitizer: NodeTreeSanitizer.trusted);
 
   ///
   /// Build the basic static template for style
@@ -45,7 +39,7 @@ class AlgTest extends AlgComponent {
         max-width: 200px;
         ${css.apply('--test')}
       }
-    </style>''', validator: nodeValidatorStyle);
+    </style>''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   ///
   @override
@@ -63,15 +57,6 @@ class AlgTest extends AlgComponent {
         ids['d'].style.backgroundColor = color;
         attributeManager.change('colorange', color == 'orange');
       });
-
-//    eventManager
-//      ..on('click', (Event event) {
-//        print('on CLIK TEST --------------');
-//      })
-//      ..onLink('click', (Event event, dynamic context) {
-//        print('onLink CLICK TEST .......');
-//      })
-//      ..subscribe();
   }
 
   ///
@@ -82,12 +67,6 @@ class AlgTest extends AlgComponent {
     if (id == 'test2')
       setAttribute('color', 'orange');
   }
-
-//  ///
-//  @override
-//  void attached() {
-//    super.attached();
-//  }
 
   /// Attributes managed by the component.
   @override

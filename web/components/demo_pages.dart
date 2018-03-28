@@ -1,6 +1,8 @@
 import 'package:dart_alg_components/dart_alg_components.dart';
 
 void defineSheetDemoPages() {
+  defineIronFlexLayout();
+
   Rules.define('--horizontal-section-container', '''
         ${Rules.use('--layout-horizontal')}
         ${Rules.use('--layout-center-justified')}

@@ -121,8 +121,7 @@ class AlgLog {
     final String text = csv.toString(); // use.toTxt for plain list of log entries
     final Blob blob = new Blob(<String>[text], 'text/plain', 'native');
 
-    if (_writeUrl != null)
-      Url.revokeObjectUrl(_writeUrl);
+    if (_writeUrl != null) Url.revokeObjectUrl(_writeUrl);
     _writeUrl = Url.createObjectUrlFromBlob(blob);
 
     new AnchorElement(href: _writeUrl)
@@ -205,4 +204,3 @@ class CsvLog {
     return result;
   }
 }
-

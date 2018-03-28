@@ -63,7 +63,23 @@ creation/use and Rules.apply/Rules.calc the dynamic.
 Each component is created with static style and if necessary the style
 is recalculated after dom insertion.
 
-If the styleSheet uses mixins, then must be created by code.
+If the styleSheet uses mixins, then must be created by code. Or in css
+files with the syntax:
+
+```css
+selector {
+    --mixin: @apply;
+    ...
+}
+
+```
+
+The css sheet must be referenced with apply attribute:
+```html
+<link rel="stylesheet" apply type="text/css" href="sheet.css">
+
+<style apply> ... </style>
+```
 
 ## Controller
 
@@ -83,53 +99,64 @@ attributes/properties/managers.
 
 The basic attribute binding in HTML is:
 
-    `<component attrName="[[controller:channel=defaultValue]]" ... >`
+```html
+<component attrName="[[controller:channel=defaultValue]]" ... >
+```
 
 Where
 
-    - controller == controller name.
-    - channel == Observable variable to bind.
-    - defaultValue == value to initialize the variable.
+* controller == controller name.
+* channel == Observable variable to bind.
+* defaultValue == value to initialize the variable.
 
 Using `{{}}` instead of `[[]]` the attribute is reflected into the HTML.
 
 It is possible to use default values for controller and channel:
 
-    <body controller="defaultController">
-        ...
-        <component id="ID" attrName="[[:=defaultValue]]" >
+```html
+<body controller="defaultController">
+ ...
+ <component id="ID" attrName="[[:=defaultValue]]">
+```
 
-  The binding would be with the variable ID-attrName in the defaultController.
+The binding would be with the variable ID-attrName in the defaultController.
 
-  And the simplest form:
+And the simplest form:
 
-    <component id="ID" attrName>
+```html
+<component id="ID" attrName>
+```
 
-  used to only receive the changes.
+used to only receive the changes.
 
 ## StyleBindings
 
 The full sytax is something like:
-
-    `<component style="color:[[:channel1=blue]];background-color:[[:channel2=red]]" ...>`
+```html
+<component style="color:[[:channel1=blue]];background-color:[[:channel2=red]]" ...>
+```
 
 That could be simplified to:
-
-    `<component id="ID" style="color=blue;background-color=red" ...>`
+```html
+<component id="ID" style="color=blue;background-color=red" ...>
+```
 
 And also to:
-
-    `<component id="ID" style="color;background-color" ...>`
+```html
+<component id="ID" style="color;background-color" ...>
+```
 
 ## Event Handlers
 
 The syntax is like:
-
-    `<component on-event="controller:channel">`
+```html
+<component on-event="controller:channel">
+```
 
 Some componets could have defined an event handler by default:
-
-    `<component-clickable id="ID">`
+```html
+<component-clickable id="ID">
+```
 
 This component would fire a ID_CLICK message to the controller.
 
@@ -184,7 +211,7 @@ And for instance:
 ## Status
 Browser compatibility: Chrome latest versions.
 
-Development: Component Creation and styles.
+Development: Basic Components.
 
 
 ## [License](LICENSE)
