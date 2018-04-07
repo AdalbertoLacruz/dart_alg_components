@@ -119,11 +119,9 @@ class AlgPaperRipple extends AlgComponent {
       ..define('holdDown', type: TYPE_BOOL)
       ..onLink((bool value, Map<String, dynamic> context) {
         final Event event = context['event'];
-        if (value) {
-          new Future<void>(() => downAction(event));
-        } else {
-          new Future<void>(() => upAction(event));
-        }
+        value
+            ? new Future<void>(() => downAction(event))
+            : new Future<void>(() => upAction(event));
       })
 
       ..define('noink', type: TYPE_BOOL)
@@ -133,15 +131,15 @@ class AlgPaperRipple extends AlgComponent {
 
       ..define('recenters', type: TYPE_BOOL);
 
-    animating = attributeManager.get('animating');
-    holdDown = attributeManager.get('holdDown');
+    animating$ = attributeManager.get('animating');
+    holdDown$ = attributeManager.get('holdDown');
 
 
     // Set up EventManager to listen to key events on the target,
     // so that space and enter activate the ripple even if the target doesn't
     // handle key events. The key handlers deal with `noink` themselves.
     keyEventTarget = (parentNode.nodeType == 11)
-        ? (parentNode as ShadowRoot).host
+        ? (parentNode as ShadowRoot).host // getRootNode().host ?
         : parentNode;
 
     (parentEventManager = (keyEventTarget is AlgComponent)
@@ -186,13 +184,13 @@ class AlgPaperRipple extends AlgComponent {
   }
 
   ///
-  ObservableEvent<bool> animating;
+  ObservableEvent<bool> animating$;
 
   /// If true, ripples will center inside its container. Used by Ripple().
   bool get center => attributeManager.getValue('center');
 
   ///
-  ObservableEvent<bool> holdDown;
+  ObservableEvent<bool> holdDown$;
 
   /// The initial opacity set on the wave. Used by Ripple()
   double initialOpacity = 0.25;
@@ -243,7 +241,7 @@ class AlgPaperRipple extends AlgComponent {
   /// en polymer: animate(), but conflicts with Element.animate().
   ///
   void animateRipple(num n) {
-    if (!animating.value) return;
+    if (!animating$.value) return;
 
     ripples.removeWhere((Ripple ripple) {
       ripple.draw();
@@ -256,7 +254,7 @@ class AlgPaperRipple extends AlgComponent {
       return false;
     });
 
-    if (ripples.isEmpty) animating.update(false);
+    if (ripples.isEmpty) animating$.update(false);
 
 
     if (!shouldKeepAnimating && ripples.isEmpty) {
@@ -271,20 +269,20 @@ class AlgPaperRipple extends AlgComponent {
   /// *not* respecting the `noink` property.
   ///
   void downAction(Event event) {
-    if (holdDown.value && ripples.isNotEmpty) return;
+    if (holdDown$.value && ripples.isNotEmpty) return;
 
     addRipple()
       ..downAction(event);
 
-    if (!animating.value) {
-      animating.update(true);
+    if (!animating$.value) {
+      animating$.update(true);
       animateRipple(null);
     }
   }
 
   ///
   void onAnimationComplete() {
-    animating.update(false);
+    animating$.update(false);
     ids['background'].style.backgroundColor = null;
 
     // 'transitionend' is a dom (transition) event.
@@ -328,13 +326,13 @@ class AlgPaperRipple extends AlgComponent {
   /// *not* respecting the `noink` property.
   ///
   void upAction(Event event) {
-    if (holdDown.value) return;
+    if (holdDown$.value) return;
 
     ripples.forEach((Ripple ripple) {
       ripple.upAction(event);
     });
 
-    animating.update(true);
+    animating$.update(true);
     animateRipple(null);
   }
 }

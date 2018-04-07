@@ -16,9 +16,17 @@ class AlgPaperRippleMixin {
   ///
   AlgComponent me;
 
-  /// Constructor
-  void algPaperRippleConstructor(AlgComponent me) {
+  ///
+  void algPaperRippleInit(AlgComponent me) {
     this.me = me;
+
+    me.mixinManager
+      ..deferredConstructor.add(algPaperRippleConstructor)
+      ..observedAttributes.add(algPaperRippleObservedAttributes);
+  }
+
+  /// Constructor
+  void algPaperRippleConstructor() {
     rippleContainer = me.shadowRoot;
 
     me.attributeManager
@@ -63,9 +71,7 @@ class AlgPaperRippleMixin {
     if (!hasRipple()) {
       _ripple = _createRipple();
       if (rippleContainer != null) rippleContainer.append(_ripple);
-      if (event != null && !_ripple.noink) {
-        _ripple.uiDownAction(event);
-      }
+      if (event != null) _ripple.uiDownAction(event);
     }
   }
 

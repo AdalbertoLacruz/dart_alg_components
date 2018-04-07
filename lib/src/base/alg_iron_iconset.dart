@@ -13,11 +13,6 @@ class AlgIronIconset {
   /// Iconset by default
   static String  defaultIconSet = 'icons';
 
-  /// For innerHtml template validation
-  static NodeValidatorBuilder nodeValidator = new NodeValidatorBuilder()
-    ..allowHtml5()
-    ..allowSvg();
-
   /// iconset storage
   static Map<String, Iconset> register = <String, Iconset>{};
 
@@ -177,10 +172,10 @@ class IconDefinition {
   IconDefinition({this.definition, this.iconset, this.name, this.size, this.type});
 }
 
-// --------------------------------------------------- IconSet
+// --------------------------------------------------- Iconset
 
 ///
-/// IconSet definition and icons storage
+/// Iconset definition and icons storage
 ///
 class Iconset {
   /// ex 'av'

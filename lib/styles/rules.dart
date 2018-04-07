@@ -8,12 +8,12 @@ part of styles.alg_components;
 class Rules {
   /// group definitions done - see isDefined(group)
   static List<String> defined = <String>[];
-  
-  /// rules/mixins storage
-  static Map<String, String> register = <String, String>{};
 
   /// where insert a sheet in the head (after title)
   static HtmlElement headInsertPoint;
+  
+  /// rules/mixins storage
+  static Map<String, String> register = <String, String>{};
   
   ///
   /// Recovers a css rule [id] from the component style
@@ -21,8 +21,9 @@ class Rules {
   ///
   static String apply(HtmlElement element, String id) {
     String rule = getComputedProperty(element, id).trim();
-    if (rule.startsWith('{'))
+    if (rule.startsWith('{')) {
       rule = rule.substring(1, rule.length - 1);
+    }
     return rule;
   }
 
@@ -35,7 +36,10 @@ class Rules {
   static void applySheet() {
     final RegExp re = new RegExp(r'(--[\w-]+): @apply;');
 
-    document.head.querySelectorAll('[apply]').forEach((Element sheetDocument) {
+//    window.console.log('applySheet');
+//    window.console.log(document.head.querySelectorAll('[apply'));
+
+    document.head.querySelectorAll('[apply]')..forEach((Element sheetDocument) {
       final CssStyleSheet sheet = (sheetDocument is LinkElement)
           ? sheetDocument.sheet
           : (sheetDocument is StyleElement) ? sheetDocument.sheet : null;
@@ -116,8 +120,7 @@ class Rules {
   ///
   static void sheet(String id, String css) {
     // check if id sheet exist
-    if (document.head.querySelector('#$id') != null)
-        return;
+    if (document.head.querySelector('#$id') != null) return;
 
     // Build it
     final Element _sheet = document.createElement('Style')

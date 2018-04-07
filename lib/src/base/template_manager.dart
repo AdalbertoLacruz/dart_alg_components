@@ -104,7 +104,7 @@ class TemplateManager {
       return;
 
     target.shadowRoot.querySelector('style')
-      ..replaceWith(styleElement.content.children.first); // only <style>
+      ..replaceWith(styleElement.content.children.first); // // only replace <style> to keep header count
   }
 
   ///
@@ -121,7 +121,7 @@ class TemplateManager {
   }
 
   ///
-  /// save original template info
+  /// Save original template info
   ///
   static void saveTemplateInfo(AlgComponent target) {
     getItem(target.localName)
@@ -139,7 +139,7 @@ class TemplateItem {
   /// Elements count in original template (header)
   int headerElements = 0;
 
-  /// Total count in original template (header
+  /// Total count in original template (header)
   int headerTotal = 0;
 
   /// style could be different when inserted in dom, affected by other css

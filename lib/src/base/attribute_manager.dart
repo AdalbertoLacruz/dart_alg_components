@@ -203,8 +203,9 @@ class AttributeManager {
   /// init = true, reflect the change now
   ///
   void reflect({ String type, bool init }) {
-    if (isUniqueAction('reflect'))
-        entry.onChangeReflectToAttribute(target, init: init, type: type);
+    if (isUniqueAction('reflect')) {
+      entry.onChangeReflectToAttribute(target, init: init, type: type);
+    }
   }
 
   ///

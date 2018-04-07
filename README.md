@@ -168,6 +168,8 @@ They Could modify an attribute on change, fire a message, etc.
 
 An observable could be modified by a transformer in state change.
 
+Observables Arrays have granularity at row level, with add, delete, update and create operations.
+
 ## AttributeManager
 
 Is the interface with the component attributes. Receive the changes

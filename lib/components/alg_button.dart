@@ -13,7 +13,11 @@ class AlgButton extends AlgComponent with AlgActionMixin {
   factory AlgButton() => new Element.tag(tag);
 
   ///
-  AlgButton.created():super.created();
+  AlgButton.created():super.created() {
+    mixinManager = new MixinManager();
+
+    algActionInit(this);
+  }
 
   ///
   static void register() => AlgComponent.register(tag, AlgButton);
@@ -41,7 +45,6 @@ class AlgButton extends AlgComponent with AlgActionMixin {
   @override
   void deferredConstructor() {
     super.deferredConstructor();
-    algActionConstructor(this);
 
     attributeManager
       ..define('color', type: TYPE_STRING)
@@ -58,15 +61,8 @@ class AlgButton extends AlgComponent with AlgActionMixin {
       ..define('click', toEvent: true, isPreBinded: true);
   }
 
-  ///
-//  @override
-//  void domLoaded() {
-//    super.domLoaded();
-//  }
-
   /// Attributes managed by the component.
   @override
   List<String> observedAttributes() => super.observedAttributes()
-      + <String>['color', 'text', 'on-click']
-      + algActionObservedAttributes();
+      + <String>['color', 'text', 'on-click'];
 }

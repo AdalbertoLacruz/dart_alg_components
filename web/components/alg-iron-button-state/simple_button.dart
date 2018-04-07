@@ -12,10 +12,15 @@ class SimpleButton extends AlgComponent with AlgIronButtonStateMixin {
   factory SimpleButton() => new Element.tag(tag);
 
   ///
-  SimpleButton.created() : super.created();
+  SimpleButton.created() : super.created() {
+    mixinManager = new MixinManager();
+
+    algIronButtonStateInit(this);
+  }
 
   ///
   static void register() => AlgComponent.register(tag, SimpleButton);
+
   @override
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()..setInnerHtml('''
     <style>
@@ -65,26 +70,11 @@ class SimpleButton extends AlgComponent with AlgIronButtonStateMixin {
   void deferredConstructor() {
     super.deferredConstructor();
 
-    algIronButtonStateConstructor(this);
+//    algIronButtonStateConstructor(this);
   }
 
-  /// Attributes managed by the component.
-  @override
-  List<String> observedAttributes() => super.observedAttributes()
-    ..addAll(algIronButtonStateObservedAttributes());
-
-//  ///
+//  /// Attributes managed by the component.
 //  @override
-//  void addStandardAttributes() {
-//    super.addStandardAttributes();
-////    + <String>[];
-//  }
-//
-//  ///
-//  /// Component removed from the tree
-//  ///
-//  @override
-//  void detached() {
-//    super.detached();
-//  }
+//  List<String> observedAttributes() => super.observedAttributes()
+//    ..addAll(algIronButtonStateObservedAttributes());
 }

@@ -79,7 +79,7 @@ void defineEditorIcons() {
 <g id="vertical-align-center"><path d="M8 19h3v4h2v-4h3l-4-4-4 4zm8-14h-3V1h-2v4H8l4 4 4-4zM4 11v2h16v-2H4z"></path></g>
 <g id="vertical-align-top"><path d="M8 11h3v10h2V11h3l-4-4-4 4zM4 3v2h16V3H4z"></path></g>
 <g id="wrap-text"><path d="M4 19h6v-2H4v2zM20 5H4v2h16V5zm-3 6H4v2h13.25c1.1 0 2 .9 2 2s-.9 2-2 2H15v-2l-3 3 3 3v-2h2c2.21 0 4-1.79 4-4s-1.79-4-4-4z"></path></g>
-    </defs></svg>''', validator: AlgIronIconset.nodeValidator);
+    </defs></svg>''', treeSanitizer: NodeTreeSanitizer.trusted);
 
   AlgIronIconset.addIconsetSvg('editor', 24, definition);
 }

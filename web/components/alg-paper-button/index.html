@@ -1,0 +1,66 @@
+<!doctype html><!--
+@copyright @polymer\paper-button\demo\index.html
+@copyright 2017-2018 adalberto.lacruz@gmail.com -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>alg-paper-ripple</title>
+    <link rel="stylesheet" apply type="text/css" href="../demo_pages.css">
+    <link rel="stylesheet" apply type="text/css" href="style.css">
+    <!--<script defer src="main.dart.js"></script>-->
+    <script defer src="main.dart" type="application/dart"></script>
+    <script defer src="packages/browser/dart.js"></script>
+  </head>
+  <body style="opacity: 0">
+    <h1 class="centered">alg-paper-button</h1>
+    <div class="vertical-section-container centered">
+      <h3>Buttons can be flat, raised, toggleable, or disabled</h3>
+      <div class="demo-snipped">
+        <alg-paper-button>link</alg-paper-button>
+        <alg-paper-button raised="">raised</alg-paper-button>
+        <alg-paper-button toggles="" raised="">toggles</alg-paper-button>
+        <alg-paper-button disabled="">disabled</alg-paper-button>
+      </div>
+
+      <h3>Buttons can have icons</h3>
+      <div class="demo-snipped">
+        <alg-paper-button><alg-iron-icon icon="check"></alg-iron-icon>link</alg-paper-button>
+        <alg-paper-button raised=""><alg-iron-icon icon="file-download"></alg-iron-icon>raised</alg-paper-button>
+        <alg-paper-button toggles="" raised=""><alg-iron-icon icon="favorite"></alg-iron-icon>toggles</alg-paper-button>
+        <alg-paper-button disabled=""><alg-iron-icon icon="block"></alg-iron-icon>disabled</alg-paper-button>
+      </div>
+
+      <h3>Buttons can hide the ripple effect using the <i>noink</i> attribute</h3>
+      <div class="demo-snipped">
+        <alg-paper-button noink="">link</alg-paper-button>
+        <alg-paper-button raised="" noink="">raised</alg-paper-button>
+        <alg-paper-button toggles="" raised="" noink="">toggles</alg-paper-button>
+        <alg-paper-button disabled="" noink="">disabled</alg-paper-button>
+      </div>
+
+      <h3>Buttons can be styled using custom properties</h3>
+      <div class="demo-snipped">
+        <alg-paper-button class="custom pink">link</alg-paper-button>
+        <alg-paper-button raised="" class="custom indigo">raised</alg-paper-button>
+        <alg-paper-button toggles="" raised="" class="custom green">toggles</alg-paper-button>
+        <alg-paper-button disabled="" class="custom disabled">disabled</alg-paper-button>
+      </div>
+
+      <h3>Buttons can be used as a link</h3>
+      <div class="demo-snipped">
+        <a href="https://www.polymer-project.org/" tabindex="-1">
+          <alg-paper-button raised="">Polymer Project</alg-paper-button>
+        </a>
+      </div>
+      <h3>Buttons can send a message to the controller</h3>
+      <div class="demo-snipped">
+        <show-msg>
+          <alg-paper-button id="btn-action" raised on-action>action</alg-paper-button>
+          <alg-paper-button id="btn-change" toggles raised on-change>change</alg-paper-button>
+        </show-msg>
+      </div>
+    </div>
+  </body>
+</html>

@@ -19,6 +19,7 @@ part '../src/base/alg_paper_ripple.dart';
 part '../src/base/attribute_manager.dart';
 part '../src/base/event_manager.dart';
 part '../src/base/message_manager.dart';
+part '../src/base/mixin_manager.dart';
 part '../src/base/style_manager.dart';
 part '../src/base/template_manager.dart';
 part '../src/behaviors/alg_iron_icon_behavior.dart';

@@ -16,6 +16,7 @@ class TemplateComponent extends AlgComponent {
 
   ///
   static void register() => AlgComponent.register(tag, TemplateComponent);
+
   @override
   TemplateElement createTemplateStyle(RulesInstance css) => new TemplateElement()..setInnerHtml('''
     <style>

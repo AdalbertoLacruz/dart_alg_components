@@ -15,7 +15,13 @@ class AlgPaperButtonBehavior
       extends AlgComponent
       with AlgIronButtonStateMixin, AlgPaperRippleMixin, AlgActionMixin {
   ///
-  AlgPaperButtonBehavior.created() : super.created();
+  AlgPaperButtonBehavior.created() : super.created() {
+    mixinManager = new MixinManager();
+
+    algIronButtonStateInit(this);
+    algPaperRippleInit(this);
+    algActionInit(this);
+  }
 
   @override
   String role = 'button';
@@ -23,9 +29,6 @@ class AlgPaperButtonBehavior
   @override
   void deferredConstructor() {
     super.deferredConstructor();
-    algIronButtonStateConstructor(this);
-    algPaperRippleConstructor(this);
-    algActionConstructor(this);
 
     attributeManager
       ..onChange('active', calculateElevation)
@@ -47,30 +50,27 @@ class AlgPaperButtonBehavior
       ..onChangeReflectToClass('receivedFocusFromKeyboard', className: 'keyboard-focus')
       ..subscribe();
 
-    active = attributeManager.get('active');
-    disabled = attributeManager.get('disabled');
-    elevation = attributeManager.get('elevation');
-    pressed = eventManager.getObservable('pressed');
-    receivedFocusFromKeyboard = eventManager.getObservable('receivedFocusFromKeyboard');
+    active$ = attributeManager.get('active');
+    disabled$ = attributeManager.get('disabled');
+    elevation$ = attributeManager.get('elevation');
+    pressed$ = eventManager.getObservable('pressed');
+    receivedFocusFromKeyboard$ = eventManager.getObservable('receivedFocusFromKeyboard');
   }
 
   ///
-  ObservableEvent<bool> active;
+  ObservableEvent<bool> active$;
   ///
-  ObservableEvent<bool> disabled;
+  ObservableEvent<bool> disabled$;
   ///
-  ObservableEvent<num>  elevation;
+  ObservableEvent<num>  elevation$;
   ///
-  ObservableEvent<bool> pressed;
+  ObservableEvent<bool> pressed$;
   ///
-  ObservableEvent<bool> receivedFocusFromKeyboard;
+  ObservableEvent<bool> receivedFocusFromKeyboard$;
 
   @override
   List<String> observedAttributes() => super.observedAttributes()
-    ..addAll(<String>['on-click'])
-    ..addAll(algIronButtonStateObservedAttributes())
-    ..addAll(algPaperRippleObservedAttributes())
-    ..addAll(algActionObservedAttributes());
+    ..addAll(<String>['on-click']);
 
   ///
   /// check for animated and add them if not defined
@@ -90,14 +90,14 @@ class AlgPaperButtonBehavior
   void calculateElevation(_) {
     int _elevation = 1;
 
-    if (disabled.value) {
+    if (disabled$.value) {
       _elevation = 0;
-    } else if (active.value || pressed.value) {
+    } else if (active$.value || pressed$.value) {
       _elevation = 4;
-    } else if (receivedFocusFromKeyboard.value) {
+    } else if (receivedFocusFromKeyboard$.value) {
       _elevation = 3;
     }
 
-    elevation.update(_elevation);
+    elevation$.update(_elevation);
   }
 }

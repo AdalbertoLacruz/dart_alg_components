@@ -14,10 +14,20 @@ part of core.alg_components;
 /// tap, enter, space ⛳pressed -> toggles ⛳
 ///
 class AlgIronButtonStateMixin {
-  /// constructor
-  void algIronButtonStateConstructor(AlgComponent me) {
+  ///
+  AlgComponent me;
+
+  ///
+  void algIronButtonStateInit(AlgComponent me) {
     this.me = me;
 
+    me.mixinManager
+      ..deferredConstructor.add(algIronButtonStateConstructor)
+      ..observedAttributes.add(algIronButtonStateObservedAttributes);
+  }
+
+  /// constructor
+  void algIronButtonStateConstructor() {
     me.attributeManager
         ..define('active', type: TYPE_BOOL) // updated by tap
         ..reflect()
@@ -38,9 +48,6 @@ class AlgIronButtonStateMixin {
     me.messageManager
         ..define('change', toAttribute: 'active'); // message: true/false
   }
-
-  ///
-  AlgComponent me;
 
   /// attributes managed by mixin
   List<String> algIronButtonStateObservedAttributes() => <String>['toggles', 'on-change'];

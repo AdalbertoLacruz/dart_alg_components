@@ -264,13 +264,9 @@ class Observable<T> {
   ///
   /// Remove the susbscriber.
   ///
-  void unsubscribe(Function handler, { bool isLink = false}) {
-    if (isLink) {
-      linkers.remove(handler);
-    } else {
-      observers.remove(handler);
-    }
-  }
+  void unsubscribe(Function handler, { bool isLink = false}) => isLink
+      ? linkers.remove(handler)
+      : observers.remove(handler);
 
   ///
   /// Changes a value and trigger the linkers/observers

@@ -43,21 +43,21 @@ class BinderParser {
   /// Attribute Name
   String attrName;
 
-  /// Get channel in attrName="[[:channel:]]"" binding or guest a channel from id
+  /// Get channel in attrName="[[:channel=]]"" binding or guest a channel from id
   /// Returns null if not possible
   String get autoChannel => channel.isNotEmpty
       ? channel
       : id.isEmpty ? '' : '$id-$attrName';
 
-  /// Get defaultValue in attrName="[[:channel:defaultValue]]" binding or value in attrName="value"
+  /// Get defaultValue in attrName="[[:channel=defaultValue]]" binding or value in attrName="value"
   String get autoValue => channel.isNotEmpty ? defaultValue : value;
 
-  /// attr="[[*:channel:*]]"
+  /// attr="[[*:channel=*]]"
   set channel(String value) => data.channel = value;
   ///
   String get channel => data.channel;
 
-  /// attr="[[controller:*:*]]"
+  /// attr="[[controller:*=*]]"
   set controller(dynamic value) => data.controller = value;
   ///
   dynamic get controller => data.controller;
@@ -72,7 +72,7 @@ class BinderParser {
   /// String or classInstance
   dynamic defaultController;
 
-  /// attr="[[*:*:default-value]]"
+  /// attr="[[*:*=default-value]]"
   set defaultValue(String value) => data.defaultValue = value;
   ///
   String get defaultValue => data.defaultValue;
@@ -137,7 +137,7 @@ class BinderParser {
   /// Process binding in attr="[[controller:channel=defaultValue]]"
   ///   or attr={{*}}
   ///   or attr="value"
-  ///   or attr="property:value"
+  ///   or attr="property=value"
   /// Returns false if no binding
   ///
   bool getAttributeBinder(String value) {
@@ -177,12 +177,12 @@ class BinderParser {
   }
 
   ///
-  /// Get channel in style="property:[[:channel:]]" binding or guest a channel from id
+  /// Get channel in style="property:[[:channel=]]" binding or guest a channel from id
   /// Returns empty string if not possible
   ///
-  String getAutoStyleChannel(String property) => id.isEmpty
-      ? ''
-      : channel.isNotEmpty ? channel : '$id-style-$property';
+  String getAutoStyleChannel(String property) => channel.isNotEmpty
+      ? channel
+      : id.isEmpty ? '' : '$id-style-$property';
 
   ///
   /// For style, split property and [[*]]

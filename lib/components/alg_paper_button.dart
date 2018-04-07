@@ -130,11 +130,11 @@ class AlgPaperButton extends AlgPaperButtonBehavior {
       ..define('raised', type: TYPE_BOOL)
       ..on(calculateElevation);
 
-    raised = attributeManager.get('raised');
+    raised$ = attributeManager.get('raised');
   }
 
   ///
-  ObservableEvent<bool> raised;
+  ObservableEvent<bool> raised$;
 
   /// Attributes managed by the component.
   @override
@@ -146,8 +146,8 @@ class AlgPaperButton extends AlgPaperButtonBehavior {
   ///
   @override
   void calculateElevation(_) {
-    if (!raised.value) {
-      elevation.update(0);
+    if (!raised$.value) {
+      elevation$.update(0);
     } else {
       super.calculateElevation(null);
     }

@@ -39,6 +39,7 @@ class AlgComponent extends HtmlElement {
   ///
   void deferredConstructor() {
     addStandardAttributes();
+    if (mixinManager != null) mixinManager.deferredConstructorRun();
   }
 
   ///
@@ -178,9 +179,13 @@ class AlgComponent extends HtmlElement {
   MessageManager get messageManager => _messageManager ??= new MessageManager(this);
   MessageManager _messageManager;
 
+  /// Manages inheritance in mixins
+  MixinManager mixinManager;
+
   /// Attributes managed by the component.
   /// To be override by components to add more attributes
-  List<String> observedAttributes() => <String>['disabled', 'style'];
+  List<String> observedAttributes() => <String>['disabled', 'style']
+    ..addAll(mixinManager != null ? mixinManager.observedAttributesRun() : <String>[]);
 
   ///
   List<String> get observedAttributesCache => _observedAttributesCache ??= observedAttributes();

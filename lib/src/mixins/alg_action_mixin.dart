@@ -8,8 +8,19 @@ part of core.alg_components;
 /// Manages 'on-action'
 ///
 class AlgActionMixin {
+  ///
+  AlgComponent me;
+
+  ///
+  void algActionInit(AlgComponent me) {
+    this.me = me;
+    me.mixinManager
+        ..deferredConstructor.add(algActionConstructor)
+        ..observedAttributes.add(algActionObservedAttributes);
+  }
+
   /// constructor
-  void algActionConstructor(AlgComponent me) {
+  void algActionConstructor() {
     me.messageManager
         ..define('action', toEvent: 'pressed', letRepeat: true)
         ..trigger((bool value) => value); // on true
