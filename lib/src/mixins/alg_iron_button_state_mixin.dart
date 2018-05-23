@@ -33,9 +33,12 @@ class AlgIronButtonStateMixin {
         ..reflect()
         ..on(_activeChanged)
 
-        ..define('toggles', type: TYPE_BOOL)
+        ..define('toggles', type: TYPE_BOOL, isLocal: true)
         ..reflect()
         ..on(_activeChanged);
+
+    active$ = me.attributeManager.get('active');
+    toggles$ = me.attributeManager.get('toggles');
 
     me.eventManager
         ..onChangeReflectToAttribute('pressed')
@@ -53,14 +56,16 @@ class AlgIronButtonStateMixin {
   List<String> algIronButtonStateObservedAttributes() => <String>['toggles', 'on-change'];
 
   ///
+  ObservableEvent<bool> active$;
+  ///
+  ObservableEvent<bool> toggles$;
+
+  ///
   /// aria-pressed attribute
   ///
   void _activeChanged(_) {
-    final bool active = me.attributeManager.getValue('active');
-    final bool toggles = me.attributeManager.getValue('toggles');
-
-    if (toggles) {
-      FHtml.attributeToggle(me, 'aria-pressed', force: active, type: 'true-false');
+    if (toggles$.value) {
+      AttributeManager.attributeToggle(me, 'aria-pressed', force: active$.value, type: 'true-false');
     } else {
       me.attributes.remove('aria-pressed');
     }
@@ -70,16 +75,12 @@ class AlgIronButtonStateMixin {
   /// Response to a click event or enter key
   ///
   void _tapHandler(_) {
-    if (me.attributes.containsKey('frozen'))
-        return;
+    if (me.attributes.containsKey('frozen')) return;
 
-    final ObservableEvent<bool> active = me.attributeManager.get('active');
-    final ObservableEvent<bool> toggles = me.attributeManager.get('toggles');
-
-    if (toggles.value) {
-      active.toggle();
+    if (toggles$.value) {
+      active$.toggle();
     } else {
-      active.update(false);
+      active$.update(false);
     }
   }
 }

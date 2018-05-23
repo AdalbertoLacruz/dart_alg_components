@@ -41,7 +41,7 @@ must be linked with components by bidirectional bindings and buses.
     └────────────────────────────────┘
 
 Each component has a presentation layer and code for behavior and
-controller binding.
+controller binding. [See More](readme/component_controller.svg).
 
 ## Component subsystems
 In order to minimize the properties/methods at component level,

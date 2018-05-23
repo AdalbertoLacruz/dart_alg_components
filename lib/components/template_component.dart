@@ -38,7 +38,7 @@ class TemplateComponent extends AlgComponent {
   /// Attributes managed by the component.
   @override
   List<String> observedAttributes() => super.observedAttributes()
-    ..addAll(<String>[]);
+    + <String>[];
 
   ///
   @override

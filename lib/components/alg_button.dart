@@ -47,12 +47,18 @@ class AlgButton extends AlgComponent with AlgActionMixin {
     super.deferredConstructor();
 
     attributeManager
+      ..define('classbind', type: TYPE_STRING, isPreBinded: true)
+      ..on((String value) {
+        AttributeManager.classUpdate(this, value);
+      })
+
+
       ..define('color', type: TYPE_STRING)
       ..on((String color) {
         ids['but'].style.color = color;
       })
 
-      ..define('text', type: TYPE_NUM)
+      ..define('text', type: TYPE_NUM, isPreBinded: true)
       ..on((num value) {
         ids['in'].innerHtml = value.toString();
       });
@@ -64,5 +70,5 @@ class AlgButton extends AlgComponent with AlgActionMixin {
   /// Attributes managed by the component.
   @override
   List<String> observedAttributes() => super.observedAttributes()
-      + <String>['color', 'text', 'on-click'];
+      + <String>['classbind', 'color', 'text', 'on-click'];
 }

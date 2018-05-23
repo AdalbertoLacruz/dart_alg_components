@@ -64,6 +64,9 @@ class Observable<T> {
       ? value
       : (value is String && value.isNotEmpty) ? num.parse(value) : null;
 
+  /// Increments for each value changed.
+  int changed;
+
   /// Stop updated in true, until false. Then update with the last delayed value received.
   /// Used to avoid bumping.
   bool get delayed => _delayed ;
@@ -97,6 +100,7 @@ class Observable<T> {
       oldValue = _value;
       context['old'] = _value;
       _value = newValue;
+      if (changed != null) changed++;
     } else {
       isNewValue = false;
     }

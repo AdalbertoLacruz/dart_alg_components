@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="component_controller.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.1733631"
+     inkscape:cx="288.71338"
+     inkscape:cy="873.4135"
+     inkscape:document-units="mm"
+     inkscape:current-layer="EVENT_GROUP"
+     showgrid="false"
+     showguides="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:measure-start="756.654,1046.85"
+     inkscape:measure-end="794.823,1044.61" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs id="defs2">
+	<marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+    </marker>
+  </defs>
+  <symbol id="arrow_arc" viewBox="0 0 10 5">
+	<path d="M 0,0 A 5,5 0 1 1 10,0" fill="#fff" stroke-width="0.2" stroke="#000" />
+	<path d="M10,0 L10.5,-1.5 L9,-1.25 z" fill="#000" />
+  </symbol>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="COMPONENT_GROUP"
+       transform="translate(10,10)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="COMPONENT"
+         width="90"
+         height="280"
+         x="0"
+         y="0" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="COMPONENT_HEADER"
+         width="90"
+         height="5"
+         x="0"
+         y="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="5"
+         y="4"
+         id="COMPONENT_HEADER_TEXT"><tspan
+           sodipodi:role="line"
+           id="tspan1373"
+           x="5"
+           y="4">COMPONENT</tspan></text>
+    </g>
+    <g
+       id="ELEMENT_GROUP"
+       transform="translate(10,15)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="ELEMENT"
+         width="30"
+         height="275"
+         x="0"
+         y="0" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="ELEMENT_HEADER"
+         width="30"
+         height="5"
+         x="0"
+         y="0.5" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="5"
+         y="4.5"
+         id="text4687"><tspan
+           sodipodi:role="line"
+           id="tspan4685"
+           x="5"
+           y="4.5">ELEMENT</tspan></text>
+    </g>
+    <g
+       id="EVENT_GROUP"
+       transform="translate(15,30)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="EVENT"
+         width="10"
+         height="45"
+         x="0"
+         y="0"
+         rx="5"
+         ry="5" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="0"
+         y="0"
+         id="EVENT_TEXT"
+         transform="translate(5, 30) rotate(-90)"><tspan
+           sodipodi:role="line">EVENT</tspan></text>
+    </g>
+    <g
+       id="CLASS_GROUP"
+       transform="translate(15,95)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="CLASS"
+         width="10"
+         height="45"
+         x="0"
+         y="0"
+         rx="5"
+         ry="5" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="0"
+         y="0"
+         id="CLASS_TEXT"
+         transform="translate(5, 30) rotate(-90)"><tspan
+           sodipodi:role="line">CLASS</tspan></text>
+    </g>
+    <g
+       id="ATTRIBUTE_GROUP"
+       transform="translate(15,160)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="ATTRIBUTE"
+         width="10"
+         height="45"
+         x="0"
+         y="0"
+         rx="5"
+         ry="5" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="0"
+         y="0"
+         id="ATTRIBUTE_TEXT"
+         transform="translate(5, 30) rotate(-90)"><tspan
+           sodipodi:role="line">ATTRIBUTE</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:2px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="0"
+         y="0"
+         id="ATTRIBUTE_SUBTEXT"
+         transform="translate(8, 32) rotate(-90)"><tspan
+           sodipodi:role="line">Observed Attributes</tspan></text>
+    </g>
+    <g
+       id="STYLE_GROUP"
+       transform="translate(15,220)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="STYLE"
+         width="10"
+         height="45"
+         x="0"
+         y="0"
+         rx="5"
+         ry="5" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="0"
+         y="0"
+         id="STYLE_TEXT"
+         transform="translate(5, 30) rotate(-90)"><tspan
+           sodipodi:role="line">STYLE</tspan></text>
+    </g>
+    <g
+       id="EVENTMANAGER_GROUP"
+       transform="translate(45,30)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="EVENTMANAGER"
+         width="50"
+         height="45"
+         x="0"
+         y="0" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="EVENTMANAGER_HEADER"
+         width="50"
+         height="4"
+         x="0"
+         y="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         x="2"
+         y="3.3"
+         id="EVENTMANAGER_HEADER_TEXT"><tspan
+           sodipodi:role="line"
+           id="tspan1377"
+           x="2"
+           y="3.3">EventManager</tspan></text>
+    </g>
+    <g
+       transform="translate(45,95)"
+       id="MESSAGEMANAGER_GROUP">
+      <rect
+         y="0"
+         x="0"
+         height="45"
+         width="50"
+         id="MESSAGEMANAGER"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <rect
+         y="0"
+         x="0"
+         height="4"
+         width="50"
+         id="MESSAGEMANAGER_HEADER"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <text
+         id="MESSAGEMANAGER_TEXT"
+         y="3.3"
+         x="2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.99998689px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         xml:space="preserve"><tspan
+           sodipodi:role="line">MessageManager</tspan></text>
+    </g>
+    <g
+       id="ATTRIBUTEMANAGER_GROUP"
+       transform="translate(45,160)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="ATTRIBUTEMANAGER"
+         width="50"
+         height="45"
+         x="0"
+         y="0" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="ATTRIBUTEMANAGER_HEADER"
+         width="50"
+         height="4"
+         x="0"
+         y="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.99998689px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         x="2"
+         y="3.3"
+         id="ATTRIBUTEMANAGER_TEXT"><tspan
+           sodipodi:role="line"
+           id="tspan5685"
+           x="2"
+           y="3.3">AttributeManager</tspan></text>
+    </g>
+    <g
+       transform="translate(45,220)"
+       id="STYLEMANAGER_GROUP">
+      <rect
+         y="0"
+         x="0"
+         height="45"
+         width="50"
+         id="STYLEMANAGER"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <rect
+         y="0"
+         x="0"
+         height="4"
+         width="50"
+         id="STYLEMANAGER_HEADER"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <text
+         id="STYLEMANAGER_TEXT"
+         y="3.3"
+         x="2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.99998689px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         xml:space="preserve"><tspan
+           sodipodi:role="line"
+           id="tspan5687"
+           x="2"
+           y="3.3">StyleManager</tspan></text>
+    </g>
+    <g
+       transform="translate(45,275)"
+       id="TEMPLATEMANAGER_GROUP">
+      <rect
+         y="0"
+         x="0"
+         height="4"
+         width="50"
+         id="TEMPLATEMANAGER_HEADER"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <text
+         id="TEMPLATEMANAGER_TEXT"
+         y="3.3"
+         x="2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.99998689px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         xml:space="preserve"><tspan
+           sodipodi:role="line"
+           id="tspan5781"
+           x="2"
+           y="3.3">TemplateManager</tspan></text>
+    </g>
+    <g
+       transform="translate(45,280)"
+       id="MIXINMANAGER_GROUP">
+      <rect
+         y="0"
+         x="0"
+         height="4"
+         width="50"
+         id="MIXINMANAGER_HEADER"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <text
+         id="MIXINMANAGER_TEXT"
+         y="3.3"
+         x="2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.99998689px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         xml:space="preserve"><tspan
+           sodipodi:role="line"
+           id="tspan5786"
+           x="2"
+           y="3.3">MixinManager</tspan></text>
+    </g>
+    <g
+       id="CONTROLLER_GROUP"
+       transform="translate(140,10)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="CONTROLLER"
+         width="60"
+         height="280"
+         x="0"
+         y="0" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="CONTROLLER_HEADER"
+         width="60"
+         height="5"
+         x="0"
+         y="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         x="5"
+         y="4"
+         id="CONTROLLER_HEADER_TEXT"><tspan
+           sodipodi:role="line"
+           id="tspan4798"
+           x="5"
+           y="4">CONTROLLER</tspan></text>
+    </g>
+    <g
+       id="OVERDRIVE_GROUP"
+       transform="translate(140,15)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="OVERDRIVE"
+         width="5"
+         height="275"
+         x="0"
+         y="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="0"
+         y="0"
+		 id="OVERDRIVE_TEXT"
+		 transform="translate(4, 20) rotate(-90)"><tspan
+           sodipodi:role="line">Override</tspan></text>
+    </g>
+    <g
+       transform="translate(155,95)"
+       id="BUSMANAGER_GROUP">
+      <rect
+         y="0"
+         x="0"
+         height="45"
+         width="40"
+         id="BUSMANAGER"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <rect
+         y="0"
+         x="0"
+         height="4"
+         width="40"
+         id="BUSMANAGER_HEADER"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <text
+         id="BUSMANAGER_TEXT"
+         y="3.3"
+         x="2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.99998689px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         xml:space="preserve"><tspan
+           sodipodi:role="line">BusManager</tspan></text>
+    </g>
+    <g
+       transform="translate(155,160)"
+       id="REGISTER_GROUP">
+      <rect
+         y="0"
+         x="0"
+         height="105"
+         width="40"
+         id="REGISTER"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <rect
+         y="0"
+         x="0"
+         height="4"
+         width="40"
+         id="REGISTER_HEADER"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1" />
+      <text
+         id="REGISTER_TEXT"
+         y="3.3"
+         x="2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.99998689px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:0"
+         xml:space="preserve"><tspan
+           sodipodi:role="line">Register</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+       x="116"
+       y="14"
+       id="BUS_TEXT"><tspan
+         sodipodi:role="line">BUS</tspan></text>
+	<g id="BUSMESSAGE_GROUP"
+       transform="translate(108,30)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+         id="EVENT"
+         width="25"
+         height="10"
+         x="0"
+         y="0"
+         rx="5"
+         ry="5" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+         x="3"
+         y="6"
+         id="EVENT_TEXT"><tspan
+           sodipodi:role="line">BusMessage</tspan></text>
+	</g>
+	<g id="CONNECT">
+	  <g>
+        <use xlink:href="#arrow_arc" x="60" y="30" width="10" height="5" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="58" y="20"><tspan sodipodi:role="line">visibleTo</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="58" y="24"><tspan sodipodi:role="line">reflectToEvent</tspan></text>
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="75" y="40"><tspan sodipodi:role="line">·define</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="75" y="45"><tspan sodipodi:role="line">·fire</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="75" y="50"><tspan sodipodi:role="line">·preBinded</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="45" y1="45" x2="25" y2="45" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="27" y="44"><tspan sodipodi:role="line">(un)subscribe</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="25" y1="55" x2="45" y2="55" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.0px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="27" y="54"><tspan sodipodi:role="line">on/onLink/onKey</tspan></text>
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="47" y="65"><tspan sodipodi:role="line">onChange</tspan></text>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="45" y1="65" x2="38" y2="65" />
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="38" y1="65" x2="38" y2="165" />
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="38" y1="110" x2="25" y2="110" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="27" y="109"><tspan sodipodi:role="line">reflect</tspan></text>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="38" y1="165" x2="25" y2="165" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="27" y="164"><tspan sodipodi:role="line">reflect</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="55" y1="75" x2="55" y2="95" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="56" y="92"><tspan sodipodi:role="line">toEvent</tspan></text>
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="85" y="110"><tspan sodipodi:role="line">define</tspan></text>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="95" y1="110" x2="155" y2="110" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="102" y="109"><tspan sodipodi:role="line">fireMessage</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="141" y="109"><tspan sodipodi:role="line">fire</tspan></text>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="155" y1="110" x2="170" y2="110" />
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="170" y1="110" x2="170" y2="160" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="172" y="155"><tspan sodipodi:role="line">BUS</tspan></text>
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="85" y="120"><tspan sodipodi:role="line">from</tspan></text>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="95" y1="120" x2="155" y2="120" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="102" y="119"><tspan sodipodi:role="line">dispatchAction</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="141" y="119"><tspan sodipodi:role="line">fireAction</tspan></text>
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="85" y="130"><tspan sodipodi:role="line">export</tspan></text>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="95" y1="130" x2="155" y2="130" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="157" y="130"><tspan sodipodi:role="line">import</tspan></text>
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="50" y="105"><tspan sodipodi:role="line">·letRepeat</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="50" y="110"><tspan sodipodi:role="line">·trigger</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="55" y1="160" x2="55" y2="140" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="56" y="145"><tspan sodipodi:role="line">toAttribute</tspan></text>
+	  </g>
+	  <g>
+        <use xlink:href="#arrow_arc" x="60" y="160" width="10" height="5" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="58" y="154"><tspan sodipodi:role="line">onChangeModify</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="45" y1="170" x2="35" y2="170" />
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="35" y1="170" x2="35" y2="125" />
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="35" y1="125" x2="25" y2="125" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.0px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="27" y="124"><tspan sodipodi:role="line">classBind</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="47" y="170"><tspan sodipodi:role="line">classUpdate</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="95" y1="170" x2="155" y2="170" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="102" y="169"><tspan sodipodi:role="line">(un)subscribe</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="45" y1="180" x2="25" y2="180" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="27" y="179"><tspan sodipodi:role="line">reflect</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="145" y1="180" x2="155" y2="180" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.0px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="147" y="179"><tspan sodipodi:role="line">change</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="45" y1="190" x2="25" y2="190" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="27" y="189"><tspan sodipodi:role="line">(on)change</tspan></text>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="155" y1="190" x2="95" y2="190" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="141" y="189"><tspan sodipodi:role="line">dispatch</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="80" y="190"><tspan sodipodi:role="line">on/onLink</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="45" y1="200" x2="25" y2="200" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="47" y="200"><tspan sodipodi:role="line">attributeToggle/removeAttribute</tspan></text>
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="50" y="175"><tspan sodipodi:role="line">·define</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="50" y="180"><tspan sodipodi:role="line">·hasCahnged</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="50" y="185"><tspan sodipodi:role="line">·countChanges</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="75" y="170"><tspan sodipodi:role="line">·alias</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="75" y="175"><tspan sodipodi:role="line">·local</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="75" y="180"><tspan sodipodi:role="line">·preBinded</tspan></text>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="75" y="185"><tspan sodipodi:role="line">·value</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="95" y1="240" x2="155" y2="240" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="102" y="239"><tspan sodipodi:role="line">(un)subscribe</tspan></text>
+	  </g>
+	  <g>
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="155" y1="255" x2="95" y2="255" marker-end="url(#arrow)" />
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="141" y="254"><tspan sodipodi:role="line">dispatch</tspan></text>
+        <line 
+		  style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:0.4,0.8;stroke-dashoffset:0"
+		  x1="95" y1="255" x2="45" y2="255" />
+        <line style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-opacity:1"
+		  x1="45" y1="255" x2="25" y2="255" marker-end="url(#arrow)" />
+	  </g>
+	  <g>
+        <text xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2"
+           x="170" y="180"><tspan sodipodi:role="line">·define</tspan></text>
+	  </g>
+	</g>
+  </g>
+</svg>

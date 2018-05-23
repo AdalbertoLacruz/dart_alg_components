@@ -127,7 +127,7 @@ class AlgPaperButton extends AlgPaperButtonBehavior {
 
     attributeManager
     // If true, the button should be styled with a shadow.
-      ..define('raised', type: TYPE_BOOL)
+      ..define('raised', type: TYPE_BOOL, isLocal: true)
       ..on(calculateElevation);
 
     raised$ = attributeManager.get('raised');

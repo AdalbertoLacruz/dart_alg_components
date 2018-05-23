@@ -1,5 +1,6 @@
 // @copyright 2017-2018 adalberto.lacruz@gmail.com
 
+import '../src/core_library.dart';
 import '../src/types/observable.dart';
 export '../src/types/observable.dart';
 
@@ -18,6 +19,9 @@ class AlgController {
 
   /// controllerName, to @override
   String name = '';
+
+  /// Bus controller
+  BusManager busManager = new BusManager();
 
   /// Storage
   Map<String, Observable<dynamic>> register = <String, Observable<dynamic>>{};
@@ -48,6 +52,7 @@ class AlgController {
   ///
   void fire(String channel, dynamic message) {
     register['bus'].update(new BusMessage(channel, message));
+    busManager.fire(channel, message);
   }
 
   ///

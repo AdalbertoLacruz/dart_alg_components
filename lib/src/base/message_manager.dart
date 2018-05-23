@@ -3,7 +3,7 @@
 part of core.alg_components;
 
 ///
-/// Manager for the component messages emitted to the bus
+/// Manager for the component messages received and emitted to the bus
 ///
 class MessageManager {
   /// Element who fire messages
@@ -12,10 +12,12 @@ class MessageManager {
   /// Constructor
   MessageManager(AlgComponent this.target);
 
+  // ------------------------------------------------- MESSAGE
+
   /// Cache for last defined
   ObservableMessage entry;
 
-  ///Messages storage
+  /// Messages storage
   Map<String, ObservableMessage> register = <String, ObservableMessage>{};
 
   ///
@@ -28,7 +30,7 @@ class MessageManager {
   }
 
   ///
-  /// Defines a message.
+  /// Defines a message (output).
   /// toAttribute, toEvent = bool true/String name
   ///
   ObservableMessage define(String name,
@@ -120,7 +122,7 @@ class MessageManager {
   ///
   /// For Prebinded definition, update controller/channel
   ///
-  void updatePrebinded() {
+  void updatePreBinded() { // TODO: use controllerHandler
     final String id = target.id;
     final dynamic controller = target.controller;
     if (id.isEmpty || controller == null || (controller is String && controller.isEmpty))
@@ -137,6 +139,53 @@ class MessageManager {
               ..channel = '${id}_$key'.toUpperCase();
         }
     });
+  }
+
+  // ------------------------------------------------- ACTION
+
+  /// Input actions definition
+  Map<String, ObservableAction> get actions => _actions ??= <String, ObservableAction>{};
+  Map<String, ObservableAction> _actions;
+
+  ///
+  /// Subscribe actions/exports to the controller
+  ///
+  void connectToController() {
+    if (_actions == null && _exportRegister == null) return;
+
+    final dynamic controllerHandler = target.controllerHandler;
+    final String id = target.id;
+    if (controllerHandler == null || id.isEmpty) return;
+
+    controllerHandler.busManager.addActor(id, this);
+  }
+
+  ///
+  /// If action is defined execute it
+  ///
+  void dispatchAction(String action, dynamic message, {bool isLink: false}) {
+    if (actions.containsKey(action)) actions[action].dispatch(message, isLink: isLink);
+  }
+
+  ///
+  /// Defines an action (input)
+  ///
+  void from(String name, Function handler) {
+    actions.containsKey(name) ? actions[name] : (actions[name] = new ObservableAction())
+      ..subscribe(handler);
+  }
+
+  // ------------------------------------------------- Export
+
+  /// component export
+  Map<String, ObservableEvent<dynamic>> get exportRegister => _exportRegister ??= <String, ObservableEvent<dynamic>>{};
+  Map<String, ObservableEvent<dynamic>> _exportRegister;
+
+  ///
+  /// Define an observable as visible outside the component, through the BusController import
+  ///
+  void export(String name, ObservableEvent<dynamic> observable) {
+    exportRegister[name] = observable;
   }
 }
 

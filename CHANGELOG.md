@@ -1,3 +1,4 @@
+## 0.0.7  (2018-05-23) PaperFab, PaperIconButton, controller actions
 ## 0.0.6  (2018-04-07) MixinManager
 ## 0.0.5  (2018-03-28) Icons, reorder css sheets in head
 ## 0.0.4  (2018-03-08) PaperButton, PaperRipple

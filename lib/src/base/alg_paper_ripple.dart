@@ -110,8 +110,12 @@ class AlgPaperRipple extends AlgComponent {
       ..define('animating', type: TYPE_BOOL)
       ..reflect()
 
-      ..define('center', type: TYPE_BOOL)
-      ..read() //!avoid time delay effects
+      ..define('center', type: TYPE_BOOL, isPreBinded: true)
+
+      ..define('classbind', type: TYPE_STRING, isPreBinded: true)
+      ..on((String value) {
+        AttributeManager.classUpdate(this, value);
+      })
 
       // If true, the ripple will remain in the "down" state until `holdDown` is set to false again.
       // holdDown does not respect noink since it can be a focus based effect.
@@ -124,15 +128,15 @@ class AlgPaperRipple extends AlgComponent {
             : new Future<void>(() => upAction(event));
       })
 
-      ..define('noink', type: TYPE_BOOL)
-      ..onLink((bool value, Map<String, dynamic> context) {
-        noink = value;
-      })
+      ..define('noink', type: TYPE_BOOL, isPreBinded: true)
 
-      ..define('recenters', type: TYPE_BOOL);
+      ..define('recenters', type: TYPE_BOOL, isPreBinded: true);
 
     animating$ = attributeManager.get('animating');
+    center$ = attributeManager.get('center');
     holdDown$ = attributeManager.get('holdDown');
+    noink$ = attributeManager.get('noink');
+    recenters$ = attributeManager.get('recenters');
 
 
     // Set up EventManager to listen to key events on the target,
@@ -159,6 +163,13 @@ class AlgPaperRipple extends AlgComponent {
         uiUpAction(null);
       })
       ..subscribe();
+
+    messageManager
+      ..from('ripple-simulate', (_) => simulateRipple())
+      ..from('ripple-start', (Event event) => uiDownAction(event))
+      ..from('ripple-end', (Event event) => uiUpAction(event))
+      ..export('noink', noink$)
+      ..export('holdDown', holdDown$);
   }
 
   /// Attributes managed by the component.
@@ -187,7 +198,9 @@ class AlgPaperRipple extends AlgComponent {
   ObservableEvent<bool> animating$;
 
   /// If true, ripples will center inside its container. Used by Ripple().
-  bool get center => attributeManager.getValue('center');
+  ObservableEvent<bool> center$;
+  ///
+  bool get center => center$.value;
 
   ///
   ObservableEvent<bool> holdDown$;
@@ -200,7 +213,7 @@ class AlgPaperRipple extends AlgComponent {
 
   /// If true, the ripple will not generate a ripple effect via pointer interaction.
   /// Calling ripple's imperative api like `simulatedRipple` will still generate the ripple effect.
-  bool noink = false;
+  ObservableEvent<bool> noink$;
 
   /// How fast (opacity per second) the wave fades out.
   double opacityDecayVelocity = 0.8;
@@ -210,7 +223,9 @@ class AlgPaperRipple extends AlgComponent {
 
   /// If true, ripples will exhibit a gravitational pull towards the center of
   /// their container as they fade away.
-  bool get recenters => attributeManager.getValue('recenters');
+  ObservableEvent<bool> recenters$;
+  ///
+  bool get recenters => recenters$.value;
 
   /// A list of the visual ripples.
   List<Ripple> ripples = <Ripple>[];
@@ -311,14 +326,14 @@ class AlgPaperRipple extends AlgComponent {
   /// respecting the `noink` property.
   ///
   void uiDownAction(Event event) {
-    if (!noink) downAction(event);
+    if (!noink$.value) downAction(event);
   }
 
   ///
   /// Provokes a ripple up effect via a UI event,
   /// respecting the `noink` property.
   void uiUpAction(Event event) {
-    if (!noink) upAction(event);
+    if (!noink$.value) upAction(event);
   }
 
   ///

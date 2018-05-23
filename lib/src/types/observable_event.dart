@@ -15,6 +15,12 @@ class ObservableEvent<T> extends Observable<T> {
   /// AlgController subscription. dynamic to let other controller types
   dynamic bindedController;
 
+  /// Don't try to connect to controller, by default
+  bool isLocal = false;
+
+  /// Same effect as attribute on-event= ...
+  bool isPreBinded = false;
+
   ///
   /// Handler to subscribe to other observables
   ///

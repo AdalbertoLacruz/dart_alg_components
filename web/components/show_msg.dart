@@ -61,7 +61,8 @@ class ShowMsg extends AlgComponent {
   /// As controller, receives a messsage
   /// and shows it into the div
   ///
-  void fire(String channel, String message) {
+  @override
+  void fire(String channel, dynamic message) {
     final HtmlElement msg = ids['msg'];
 
     final DateTime timeNow = new DateTime.now();
@@ -75,6 +76,7 @@ class ShowMsg extends AlgComponent {
   /// Associates an action with a channel.
   /// dummy
   ///
+  @override
   dynamic subscribe(String channel, dynamic defaultValue, Function handler, ControllerStatus status) {
     window.console.log('controller subscribe: $channel');
     status.hasChannel = false;

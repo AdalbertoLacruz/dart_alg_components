@@ -14,16 +14,14 @@ class AlgIronIconBehavior extends AlgComponent {
 
     attributeManager
       // The name of the icon to use. The name should be of the form: `iconset_name:icon_name`.
-      ..define('icon', type: TYPE_STRING)
+      ..define('icon', type: TYPE_STRING, countChanges: true)
       ..on(_updateIcon)
-      ..defaultValue(null)
 
       // If using iron-icon without an iconset, you can set the src to be
       // the URL of an individual icon image file. Note that this will take
       // precedence over a given icon attribute.
-      ..define('src', type: TYPE_STRING)
-      ..on(_updateIcon)
-      ..read(alwaysUpdate: true);
+      ..define('src', type: TYPE_STRING, countChanges: true)
+      ..on(_updateIcon);
 
     icon$ = attributeManager.get('icon');
     src$ = attributeManager.get('src');
@@ -43,10 +41,10 @@ class AlgIronIconBehavior extends AlgComponent {
   /// Add the icon to the shadow
   ///
   void _updateIcon(_) {
+    if (!attributeManager.hasChanged('updateIcon', <String>['icon', 'src'])) return;
+
     final String icon = icon$.value;
     final String src = src$.value;
-
-    if (icon == null && src == null) return;
 
     final bool usesIconset = icon != null || src == null;
 

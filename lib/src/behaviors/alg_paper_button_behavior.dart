@@ -35,8 +35,7 @@ class AlgPaperButtonBehavior
       
       ..onChange('disabled', calculateElevation)
       
-      ..define('elevation', type: TYPE_NUM)
-      ..defaultValue(0)
+      ..define('elevation', type: TYPE_NUM, value: 0)
       ..reflect();
 
     eventManager
@@ -50,15 +49,15 @@ class AlgPaperButtonBehavior
       ..onChangeReflectToClass('receivedFocusFromKeyboard', className: 'keyboard-focus')
       ..subscribe();
 
-    active$ = attributeManager.get('active');
+//    active$ = attributeManager.get('active');
     disabled$ = attributeManager.get('disabled');
     elevation$ = attributeManager.get('elevation');
     pressed$ = eventManager.getObservable('pressed');
     receivedFocusFromKeyboard$ = eventManager.getObservable('receivedFocusFromKeyboard');
   }
 
-  ///
-  ObservableEvent<bool> active$;
+  //
+//  ObservableEvent<bool> active$;
   ///
   ObservableEvent<bool> disabled$;
   ///

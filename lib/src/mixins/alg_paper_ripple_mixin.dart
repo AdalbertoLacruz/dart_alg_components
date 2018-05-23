@@ -30,12 +30,9 @@ class AlgPaperRippleMixin {
     rippleContainer = me.shadowRoot;
 
     me.attributeManager
-        // If true, no ink used in ripple effect
-        ..define('noink', type: TYPE_BOOL)
-        ..reflect()
-        ..on((bool value) {
-          if(hasRipple()) _ripple.noink = value;
-        });
+        // If true, no ink used in ripple effect. Alias for alg-paper-ripple subscription
+        ..define('noink', type: TYPE_BOOL, isLocal: true, alias: <String>['ink-noink'])
+        ..reflect();
 
     me.eventManager
       ..define<Event>('transitionend', new ObservableEvent<Event>('transitionend')
@@ -43,6 +40,9 @@ class AlgPaperRippleMixin {
       ..on('down', ensureRipple) // a mouse event has x,y
       ..on('focused', ensureRipple)
       ..subscribe();
+
+    me.messageManager
+      ..from('ensure-ripple', (Event event) => ensureRipple(event));
   }
 
   /// attributes managed by mixin
@@ -60,8 +60,8 @@ class AlgPaperRippleMixin {
   ///
   AlgPaperRipple _createRipple() =>
       (document.createElement('alg-paper-ripple') as AlgPaperRipple)
-        ..controller ??= ''
-        ..noink = me.attributeManager.getValue('noink'); // TODO: assure noink is transfered
+        ..setAttribute('id', 'ink')
+        ..controller = me;
 
   ///
   /// Ensures this element contains a ripple effect. For startup efficiency
@@ -71,7 +71,8 @@ class AlgPaperRippleMixin {
     if (!hasRipple()) {
       _ripple = _createRipple();
       if (rippleContainer != null) rippleContainer.append(_ripple);
-      if (event != null) _ripple.uiDownAction(event);
+
+      if (event != null) me.fireAction('ink', 'ripple-start', event);
     }
   }
 

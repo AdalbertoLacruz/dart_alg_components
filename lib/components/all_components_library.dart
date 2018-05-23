@@ -4,6 +4,8 @@ import '../styles/styles_library.dart';
 import 'alg_button.dart';
 import 'alg_iron_icon.dart';
 import 'alg_paper_button.dart';
+import 'alg_paper_fab.dart';
+import 'alg_paper_icon_button.dart';
 import 'alg_test.dart';
 
 
@@ -13,6 +15,8 @@ void allComponentsRegister() {
   AlgButton.register();
   AlgIronIcon.register();
   AlgPaperButton.register();
+  AlgPaperFab.register();
+  AlgPaperIconButton.register();
 }
 
 ///

@@ -17,10 +17,18 @@ class AttributeManager {
     _setInitialAttributes();
   }
 
+  /// <alias, name> for observable names. Let an alternative name
+  Map<String, String> get aliasRegister => _aliasRegister ??= <String, String>{};
+  Map<String, String> _aliasRegister;
+
   /// Attributes we have try to subscribe. Don't try anymore.
   List<String> binded = <String>[];
 
-  /// Default values for read(), default()
+  /// Storage for last hasChanged key
+  Map<String, int> get changedRegister => _changedRegister ??= <String, int>{};
+  Map<String, int> _changedRegister;
+
+  /// Default values for read(), default() // TODO: deprecated
   Map<String, dynamic> get defaults => _defaults ??= <String, dynamic>{};
   Map<String, dynamic> _defaults;
 
@@ -28,8 +36,7 @@ class AttributeManager {
   ObservableEvent<dynamic> entry;
 
   /// Attributes storage
-  Map<String, ObservableEvent<dynamic>> get register => _register ??= <String, ObservableEvent<dynamic>>{};
-  Map<String, ObservableEvent<dynamic>> _register;
+  Map<String, ObservableEvent<dynamic>> register = <String, ObservableEvent<dynamic>>{};
 
   /// Attributes removed, pending to receive null in attributeChanged
   List<String> removedAttributes = <String>[];
@@ -56,8 +63,9 @@ class AttributeManager {
   /// Initialize observable with attribute value or default.
   /// Don't trigger handlers.
   ///
-  void defaultValue(dynamic value) {
+  void defaultValue(dynamic value) { // TODO: deprecated
     final String name = entry.name;
+    print('attributeManager default value $name, deprecated?');
 
     if (target.attributes.containsKey(name)) {
       entry.value = target.getAttribute(name);
@@ -70,30 +78,45 @@ class AttributeManager {
 
   ///
   /// Defines an attribute, if not previously defined.
+  /// Alias only used in entry creation.
   ///
-  void define<T>(String name, {String type = TYPE_STRING}) {
-    if (register.containsKey(name)) {
-      entry = register[name];
-    } else {
+  void define<T>(String name,
+      { List<String> alias,
+        bool countChanges,
+        dynamic value,
+        bool isPreBinded,
+        bool isLocal,
+        String type = TYPE_STRING}) {
+    //
+    entry = has(name);
+    if (entry == null) {
       entry = new ObservableEvent<T>(name)
           ..setType(type)
           ..prefix = calculatePrefix();
       register[name] = entry;
+      if (alias != null) {
+        alias.forEach((String aliasName) => aliasRegister[aliasName] = name);
+      }
+      if (countChanges ?? false) entry.changed = 0; // activate changed counter
     }
+
+    if (value != null) entry.value = value;
+    if (isLocal != null) entry.isLocal = isLocal;
+    if (isPreBinded != null) entry.isPreBinded = isPreBinded;
   }
 
   ///
   /// Load defaults for read(), if not previously defined.
   /// if [important] == true, load any case.
   ///
-  void defineDefault(String name, dynamic value, {bool important = false}) {
+  void defineDefault(String name, dynamic value, {bool important = false}) { // TODO: deprecated
     if (important || !defaults.containsKey(name)) {
       defaults[name] = value;
     }
   }
 
   ///
-  /// Assure an entry
+  /// Assure an entry. Creates it if not defined
   ///
   ObservableEvent<dynamic> get(String name) {
     define<String>(name); // by default String
@@ -104,6 +127,30 @@ class AttributeManager {
   /// Returns the attribute value
   ///
   dynamic getValue(String name) => get(name).value;
+
+  ///
+  /// If name is in register or alias return it, else null
+  ///
+  ObservableEvent<dynamic> has(String name) {
+    if (register.containsKey(name)) {
+      return entry = register[name];
+    } else if ((_aliasRegister != null) && aliasRegister.containsKey(name)) {
+      final String aliasName = aliasRegister[name];
+      if (register.containsKey(aliasName)) return entry = register[aliasName];
+    }
+    return null;
+  }
+
+  ///
+  /// True if targets have changed since last call with key.
+  /// The observables have to be defined with countChanges = true.
+  ///
+  bool hasChanged(String key, List<String> targets) {
+    final int changesCount = targets.fold(0, (int sum, String target) => sum + get(target).changed ?? 0);
+    return changedRegister[key] == changesCount
+        ? false
+        : (changedRegister[key] = changesCount) != null; // false
+  }
 
   ///
   /// true if it is Binded to the controller
@@ -184,9 +231,12 @@ class AttributeManager {
   /// Read, now,  the attribute associate with entry.
   /// If attribute isn't found use defaults if possible.
   /// [alwaysUpdate] == true, execute the observers any case.
+  /// [defaultValue] set a default value
   ///
-  void read({bool alwaysUpdate = false}) {
+  void read({bool alwaysUpdate = false, bool defaultValue}) { // TODO: deprecated
     final String name = entry.name;
+    print('attributeManager read $name deprecated?');
+    if (defaultValue != null) defineDefault(name, defaultValue);
 
     if (target.attributes.containsKey(name)) {
       entry.update(target.getAttribute(name));
@@ -223,7 +273,7 @@ class AttributeManager {
     define<bool>('aria-disabled', type: TYPE_BOOL);
     reflect(type: 'true-false');
 
-    define<bool>('disabled', type: TYPE_BOOL);
+    define<bool>('disabled', type: TYPE_BOOL, isLocal: true);
     reflect();
     onChangeModify('aria-disabled');
     on((bool disabled) {
@@ -258,7 +308,88 @@ class AttributeManager {
     });
   }
 
+  ///
+  /// For PreBinded definition, update controller/channel
+  ///
+  void updatePreBinded() {
+    final String id = target.id;
+    final dynamic controllerHandler = target.controllerHandler;
+    if (id.isEmpty || controllerHandler == null) return;
+
+    register.forEach((String attrName, ObservableEvent<dynamic> entry) {
+      if (entry.isPreBinded && !isSubscriptionTried(attrName)) {
+        final ControllerStatus status = new ControllerStatus(hasChannel: false);
+        final String channel = '$id-$attrName';
+        final String value = controllerHandler.subscribe(channel, null, entry.receiverHandler, status);
+
+
+        // Needed for unsubscribe
+        if (status.hasChannel) {
+          entry
+            ..bindedChannel = channel
+            ..bindedController = controllerHandler;
+        }
+        if (value != null) entry.update(value);
+      }
+    });
+  }
+
 // --------------------------------------------------- static
+  ///
+  /// Set or remove the attribute according to force.
+  /// If force is null, set the attribute if not exist and vice versa.
+  /// type =
+  ///   null '-remove' => attribute=""
+  ///   'true-false'   => attribute="true", attribute="false"
+  ///   'true-remove'  => attribute="true"
+  ///
+  static void attributeToggle(HtmlElement target, String attrName,  {
+    bool force,
+    String type
+  }) {
+    final List<String> types = (type ?? '-remove').split('-');
+    final String on = types[0].trim().toLowerCase();
+    final String off = types[1].trim().toLowerCase();
+
+    final bool hasAttribute = target.attributes.containsKey(attrName);
+    final bool value = force ?? !hasAttribute;
+    final String attrValue = hasAttribute ? target.getAttribute(attrName) : null;
+
+    if (value) {
+      if (attrValue != on)
+        target.setAttribute(attrName, on);
+    } else {
+      if (off == 'remove') {
+        if (hasAttribute)
+          target.attributes.remove(attrName);
+      } else {
+        if (attrValue != off)
+          target.setAttribute(attrName, off);
+      }
+    }
+  }
+
+  ///
+  /// Set/remove class for target.
+  /// Ex.: '+addClass -removeClass !toggleClass addClass'
+  ///
+  static void classUpdate(HtmlElement target, String value) {
+    if (value == null) return;
+    value.split(' ').forEach((String name) {
+      name = name.trim();
+      if (name.isNotEmpty) {
+        if (name.startsWith('+')) {
+          target.classes.add(name.substring(1));
+        } else if (name.startsWith('-')) {
+          target.classes.remove(name.substring(1));
+        } else if (name.startsWith('!')) {
+          target.classes.toggle(name.substring(1));
+        } else {
+          target.classes.add(name);
+        }
+      }
+    });
+  }
 
   ///
   /// Load all attributes for the [target] component
@@ -273,7 +404,13 @@ class AttributeManager {
   /// If not found, we use the first controller instantiated.
   ///
   static void findController(AlgComponent target) {
-    if (target.controller != null) return;
+    void setHandler() => target.controllerHandler = (target.controller is String )
+        ? AlgController.controllers[target.controller]
+        : target.controller;
+
+    if (target.controllerHandler != null) return null;
+    if (target.controller != null) return setHandler();
+
 
     final List<HtmlElement> elementsToSet = <HtmlElement>[];
     dynamic controller; // String | ClassInstance
@@ -303,6 +440,8 @@ class AttributeManager {
         element.setAttribute('controller', controller);  // could be removed
       }
     });
+
+    setHandler();
   }
 
   ///
@@ -377,7 +516,10 @@ class AttributeManager {
         ? AlgController.controllers[binderParser.controller]
         : binderParser.controller;
 
-    if (controller == null) return entry.update(binderParser.value);
+    if ((controller == null) ||
+        (entry.isLocal && !binderParser.isAttributeBinder)) {
+      return entry.update(binderParser.value);
+    }
 
     final String channel = binderParser.autoChannel;
     String value = binderParser.autoValue;

@@ -59,9 +59,12 @@ class AlgComponent extends HtmlElement {
 
     if (_messageManager != null) {
       messageManager
-          ..updatePrebinded()
-          ..subscribeTo();
+          ..updatePreBinded()
+          ..subscribeTo()
+          ..connectToController();
     }
+
+    if (_attributeManager != null) attributeManager.updatePreBinded();
   }
 
   ///
@@ -168,8 +171,15 @@ class AlgComponent extends HtmlElement {
   AttributeManager get attributeManager => _attributeManager ??= new AttributeManager(this);
   AttributeManager _attributeManager;
 
+  /// Actions controller
+  BusManager get busManager => _busManager ??= new BusManager();
+  BusManager _busManager;
+
   /// String Name or class instance
   dynamic controller;
+
+  /// class instance (AlgComponent or AlgController)
+  dynamic controllerHandler;
 
   /// Events
   EventManager get eventManager => _eventManager ??= new EventManager(this);
@@ -196,7 +206,38 @@ class AlgComponent extends HtmlElement {
   StyleManager _styleManager;
 
   ///
-  /// Send a message to the controller
+  /// As controller receives a message from the bus. To be override.
+  ///
+  void fire(String channel, dynamic message) { }
+
+  ///
+  /// Execute actions in components controlled by this (bus descendants)
+  ///
+  void fireAction(String id, String action, dynamic message) =>
+      busManager.fireAction(id, action, message);
+
+  ///
+  /// Send a message to the controller (bus up)
   ///
   void fireMessage(String channel, dynamic message) => messageManager.fire(channel, message);
+
+  ///
+  /// As controller, associates an action with a channel.
+  /// if [defaultValue] != null, set the value in channel.
+  /// [handler] is the function to be called in channel value change.
+  /// [status] is a return variable, with information about channel find success.
+  /// Returns the channel value / default value.
+  ///
+  dynamic subscribe(String channel, dynamic defaultValue, Function handler, ControllerStatus status) {
+    final Observable<dynamic> entry = attributeManager.has(channel);
+    if (entry == null) {
+      status.hasChannel = false;
+      return defaultValue;
+    }
+
+    status.hasChannel = true;
+    entry.observe(handler);
+    if (defaultValue != null) entry.update(defaultValue);
+    return entry.value;
+  }
 }
