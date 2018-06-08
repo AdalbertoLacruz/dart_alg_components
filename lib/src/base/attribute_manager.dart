@@ -149,7 +149,7 @@ class AttributeManager {
     final int changesCount = targets.fold(0, (int sum, String target) => sum + get(target).changed ?? 0);
     return changedRegister[key] == changesCount
         ? false
-        : (changedRegister[key] = changesCount) != null; // false
+        : (changedRegister[key] = changesCount) != null; // true
   }
 
   ///

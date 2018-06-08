@@ -1,3 +1,4 @@
+## 0.0.8  (2018-06-08) Dart2 wevdev
 ## 0.0.7  (2018-05-23) PaperFab, PaperIconButton, controller actions
 ## 0.0.6  (2018-04-07) MixinManager
 ## 0.0.5  (2018-03-28) Icons, reorder css sheets in head

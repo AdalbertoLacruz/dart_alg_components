@@ -143,10 +143,12 @@ class AlgComponent extends HtmlElement {
   /// check for tabIndex, role, and add them if not defined
   ///
   void addStandardAttributes() {
-    if (!attributes.containsKey('role') && role != null)
-        setAttribute('role', role);
-    if (!attributes.containsKey('tabindex'))
-        setAttribute('tabindex', '0');
+    if (!attributes.containsKey('role') && role != null) {
+      setAttribute('role', role);
+    }
+    if (!attributes.containsKey('tabindex')) {
+      setAttribute('tabindex', '0');
+    }
   }
 
   ///

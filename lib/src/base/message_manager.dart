@@ -120,17 +120,13 @@ class MessageManager {
   }
 
   ///
-  /// For Prebinded definition, update controller/channel
+  /// For PreBinded definition, update controller/channel
   ///
-  void updatePreBinded() { // TODO: use controllerHandler
+  void updatePreBinded() {
     final String id = target.id;
-    final dynamic controller = target.controller;
-    if (id.isEmpty || controller == null || (controller is String && controller.isEmpty))
-        return;
+    final dynamic controllerHandler = target.controllerHandler;
 
-    final dynamic controllerHandler = (controller is String )
-        ? AlgController.controllers[controller]
-        : controller;
+    if (id.isEmpty || controllerHandler == null) return;
 
     register.forEach((String key, ObservableMessage entry) {
         if (entry.isPreBinded) {

@@ -52,7 +52,6 @@ class AlgButton extends AlgComponent with AlgActionMixin {
         AttributeManager.classUpdate(this, value);
       })
 
-
       ..define('color', type: TYPE_STRING)
       ..on((String color) {
         ids['but'].style.color = color;

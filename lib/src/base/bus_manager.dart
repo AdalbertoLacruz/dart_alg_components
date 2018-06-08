@@ -71,7 +71,7 @@ class BusManager {
   ///
   /// Define what to do (handler) when a message is received.
   /// Ex.
-  /// (['CLICK', 'ACTION'], handler). If CLICK or ACTION is receives the handler is executed.
+  /// (['CLICK', 'ACTION'], handler). If CLICK or ACTION is received the handler is executed.
   ///
   void onFire(List<String> channels, Function handler) {
     if (channels == null || handler == null) return;
