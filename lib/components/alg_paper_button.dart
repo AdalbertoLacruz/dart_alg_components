@@ -126,11 +126,10 @@ class AlgPaperButton extends AlgPaperButtonBehavior {
     super.deferredConstructor();
 
     attributeManager
-    // If true, the button should be styled with a shadow.
+      // If true, the button should be styled with a shadow.
       ..define('raised', type: TYPE_BOOL, isLocal: true)
-      ..on(calculateElevation);
-
-    raised$ = attributeManager.get('raised');
+      ..on(calculateElevation)
+      ..store((ObservableEvent<bool> entry$) => raised$ = entry$);
   }
 
   ///

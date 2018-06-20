@@ -27,13 +27,13 @@ class AlgIronIconset {
   /// Load a svg icon group
   ///   definition (<div><svg><def> <g id><path>)
   ///
-  static void addIconsetSvg(String iconsetName, int size, HtmlElement definition) {
-    final Map<String, HtmlElement> data = _getIconset(iconsetName, 'svg', size).data;
-    final HtmlElement iconGroup = definition.firstChild.firstChild;
+  static void addIconsetSvg(String iconsetName, int size, Element definition) {
+    final Map<String, dynamic> data = _getIconset(iconsetName, 'svg', size).data;
+    final Element iconGroup = definition.firstChild.firstChild;
     final List<Element> iconChildren = iconGroup.children;
 
     for (int i = 0; i < iconChildren.length; i++) {
-      final HtmlElement item = iconChildren[i];
+      final Element item = iconChildren[i];
       data[item.id] = item;
     }
   }
@@ -100,7 +100,7 @@ class AlgIronIconset {
             name: name,
             type: type,
             size: size,
-            data: <String, HtmlElement>{});
+            data: <String, dynamic>{});
 
 
   ///

@@ -45,6 +45,14 @@ class AttributeManager {
 //  List<Function> unsubscribeHandlers = <Function>[];
 
   ///
+  /// Assure in the future that the entry observable is dispatched
+  ///
+  void autoDispatch() {
+    final ObservableEvent<dynamic> entry$ = entry;
+    new Future<void>(() => entry$.autoDispatch());
+  }
+
+  ///
   /// Compose the name prefix
   ///
   String calculatePrefix() {
@@ -56,7 +64,7 @@ class AttributeManager {
   ///
   /// Update the [value] for an attribute [name]
   ///
-  void change(String name, dynamic value) => get(name)
+  void change(String name, dynamic value) => get(name) // TODO: deprecated?
         ..update(value);
 
   ///
@@ -288,7 +296,19 @@ class AttributeManager {
           target.tabIndex = target.oldTabIndex;
       }
     });
+    store((ObservableEvent<bool> entry$) => target.disabled$ = entry$);
   }
+
+  ///
+  /// Defines `newValue = handler(value)` as a transformer
+  ///
+  void setTransformer(Function handler) => entry.transformer = handler;
+
+  ///
+  /// save entry to variable. ex.
+  ///   ..store((entry) => observable$ = entry)
+  ///
+  void store(Function handler) => handler(entry);
 
   ///
   /// Set entry to the attribute, for further processing

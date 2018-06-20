@@ -32,13 +32,12 @@ class AlgIronButtonStateMixin {
         ..define('active', type: TYPE_BOOL) // updated by tap
         ..reflect()
         ..on(_activeChanged)
+        ..store((ObservableEvent<bool> entry$) => active$ = entry$)
 
         ..define('toggles', type: TYPE_BOOL, isLocal: true)
         ..reflect()
-        ..on(_activeChanged);
-
-    active$ = me.attributeManager.get('active');
-    toggles$ = me.attributeManager.get('toggles');
+        ..on(_activeChanged)
+        ..store((ObservableEvent<bool> entry$) => toggles$ = entry$);
 
     me.eventManager
         ..onChangeReflectToAttribute('pressed')

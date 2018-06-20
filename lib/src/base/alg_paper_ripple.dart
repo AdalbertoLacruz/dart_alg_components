@@ -109,8 +109,10 @@ class AlgPaperRipple extends AlgComponent {
       // True when there are visible ripples animating within the element.
       ..define('animating', type: TYPE_BOOL)
       ..reflect()
+      ..store((ObservableEvent<bool> entry$) => animating$ = entry$)
 
       ..define('center', type: TYPE_BOOL, isPreBinded: true)
+      ..store((ObservableEvent<bool> entry$) => center$ = entry$)
 
       ..define('classbind', type: TYPE_STRING, isPreBinded: true)
       ..on((String value) {
@@ -127,16 +129,13 @@ class AlgPaperRipple extends AlgComponent {
             ? new Future<void>(() => downAction(event))
             : new Future<void>(() => upAction(event));
       })
+      ..store((ObservableEvent<bool> entry$) => holdDown$ = entry$)
 
       ..define('noink', type: TYPE_BOOL, isPreBinded: true)
+      ..store((ObservableEvent<bool> entry$) => noink$ = entry$)
 
-      ..define('recenters', type: TYPE_BOOL, isPreBinded: true);
-
-    animating$ = attributeManager.get('animating');
-    center$ = attributeManager.get('center');
-    holdDown$ = attributeManager.get('holdDown');
-    noink$ = attributeManager.get('noink');
-    recenters$ = attributeManager.get('recenters');
+      ..define('recenters', type: TYPE_BOOL, isPreBinded: true)
+      ..store((ObservableEvent<bool> entry$) => recenters$ = entry$);
 
 
     // Set up EventManager to listen to key events on the target,

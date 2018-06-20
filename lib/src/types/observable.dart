@@ -24,6 +24,9 @@ class Observable<T> {
   /// True, avoid update
   bool disabled = false;
 
+  /// True if dispatch has been executed at least one time
+  bool dispatched = false;
+
 //  initHandler;
 
 //  /// true => a log handler is defined
@@ -126,12 +129,20 @@ class Observable<T> {
 //  }
 
   ///
+  /// Assure a dispatch
+  ///
+  void autoDispatch() {
+    if (!dispatched) dispatch();
+  }
+
+  ///
   /// Call the subscribers (async observers/linkers)
   /// Async values could change when processed if not receveid by value.
   ///   link: handler(value)
   ///   observe: handler(value, context)
   ///
   void dispatch([T data]) {
+    dispatched = true;
     final T _data = data ?? value;
     linkers.forEach((Function handler) => handler(_data, context));
     // async calls only could receive parameters by value

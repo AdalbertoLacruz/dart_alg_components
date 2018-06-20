@@ -16,15 +16,14 @@ class AlgIronIconBehavior extends AlgComponent {
       // The name of the icon to use. The name should be of the form: `iconset_name:icon_name`.
       ..define('icon', type: TYPE_STRING, countChanges: true)
       ..on(_updateIcon)
+      ..store((ObservableEvent<String> entry$) => icon$ = entry$)
 
       // If using iron-icon without an iconset, you can set the src to be
       // the URL of an individual icon image file. Note that this will take
       // precedence over a given icon attribute.
       ..define('src', type: TYPE_STRING, countChanges: true)
-      ..on(_updateIcon);
-
-    icon$ = attributeManager.get('icon');
-    src$ = attributeManager.get('src');
+      ..on(_updateIcon)
+      ..store((ObservableEvent<String> entry$) => src$ = entry$);
   }
 
   @override

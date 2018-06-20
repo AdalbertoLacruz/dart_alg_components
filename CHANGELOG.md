@@ -1,3 +1,4 @@
+## 0.0.9  (2018-06-20) alg-iron-checked-element-behavior
 ## 0.0.8  (2018-06-08) Dart2 wevdev
 ## 0.0.7  (2018-05-23) PaperFab, PaperIconButton, controller actions
 ## 0.0.6  (2018-04-07) MixinManager

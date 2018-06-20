@@ -183,6 +183,9 @@ class AlgComponent extends HtmlElement {
   /// class instance (AlgComponent or AlgController)
   dynamic controllerHandler;
 
+  ///
+  ObservableEvent<bool> disabled$;
+
   /// Events
   EventManager get eventManager => _eventManager ??= new EventManager(this);
   EventManager _eventManager;
